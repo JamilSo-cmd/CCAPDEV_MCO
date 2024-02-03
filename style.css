@@ -1,0 +1,9 @@
+
+#loginBox{
+    border:1px solid black;
+    height: 300px;
+    width: 450px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+}
