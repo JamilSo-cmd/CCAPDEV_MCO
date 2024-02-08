@@ -6,6 +6,16 @@
     width: 100%;
 }
 
+.icon{
+
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px;
+    border: 2px solid rgb(187, 187, 187);
+
+}
+
 #homeHeader{
     height: 58px;
     width: 100%;
@@ -22,6 +32,7 @@
     width:100%;
     padding-left: 40px;
 }
+
 
 .sideBox{
     
@@ -53,17 +64,41 @@
 }
 
 .postWindow{
-    padding-top: 8%;
+    padding-top: 6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding-left: 25%;
+}
+
+.postHeader{
+
+    padding: 10px;
+    text-align: justify;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(186, 186, 186);
+
+
+}
+
+.postFooter{
+    font-size: 0.8rem;
+    color: rgb(151, 154, 157);
+    display : table-row;
+    vertical-align : bottom;
+    height : 1px;
 }
 
 .post{
     width: 600px;
     height:600px;
-    border: 1px solid rgb(233, 233, 233);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(174, 174, 174);
     background-color: white;
-    margin-bottom: 15px;
+    box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
+    margin-bottom: 30px;
 }
 
 .highlight:hover{
