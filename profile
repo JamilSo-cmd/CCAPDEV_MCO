@@ -51,9 +51,12 @@
                         
                         <div class="profileWindow">
                             <img class="profilePic" src="testface.png"/>
+                                
                             <div class="personalInfoWindow">
-
+                                <a class="personalInfoText"><span class="emphasisText">Username:</span> Bob</a>
                             </div>
+
+                            <div class="descriptionWindow"></div>
                         </div>
 
                         <div class="post">
