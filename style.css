@@ -140,6 +140,28 @@
     box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
 }
 
+.personalInfoText {
+    position: relative;
+    margin: auto;
+    text-align: left;
+    display: block;
+}
+
+.emphasisText {
+    color: red;
+    font-size: large;
+}
+
+.descriptionWindow {
+    height: 200px;
+    width: 800px;
+    background-color: aliceblue;
+    position: relative;
+    bottom: 40%;
+    left: 3.5%;
+    box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
+}
+
 .highlight:hover{
     filter: brightness(85%);
 }
@@ -173,11 +195,6 @@ body{
 h1 {
     margin-left: 900px; 
     margin-top: 30px;  
-}
-
-/* temporary note */
-p {
-    margin-left: 735px;
 }
 
 /* log in container box */
