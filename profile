@@ -51,6 +51,9 @@
                         
                         <div class="profileWindow">
                             <img class="profilePic" src="testface.png"/>
+                            <div class="personalInfoWindow">
+
+                            </div>
                         </div>
 
                         <div class="post">
