@@ -76,16 +76,19 @@
     text-align: justify;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid rgb(186, 186, 186);
+    border: 1px solid rgb(186, 186, 186);
 
 
 }
 
 .PostBody{
-    height: 450px;
+    min-height: 450px;
+    max-height: 450px;
+    overflow-wrap: break-word;
     padding: 20px;
     padding-top: 10px;
     text-align: justify;
+
 
 }
 
@@ -99,7 +102,8 @@
 
 .post{
     width: 600px;
-    height:600px;
+    min-height: 600px;
+    max-height: 600px;
     display: flex;
     flex-direction: column;
     border: 1px solid rgb(174, 174, 174);
@@ -224,3 +228,136 @@ h1 {
     margin: auto;
     margin-top: 50px;
 }
+
+/* div for like, comment, and/or share buttons*/
+.reactionbar{
+    background-color: white;
+    margin-top:10px;
+    font-size: 0.8rem;
+    color: rgb(151, 154, 157);
+    display : table-row;
+    vertical-align : bottom;
+    width: 900px;
+    height: 40px;
+}
+
+.likeButton{
+    position:relative;
+    height: 20px;
+    width:55px;
+    background-color: green;
+    border: 2px outset #91c092;
+    top: 10px;
+    text-align: center;
+    margin-left: 15px;
+    float: left;
+    color: white;
+}
+
+.likeButton:hover{
+    background-color:darkgreen;
+}
+
+.likebutton:active {
+    background-color: #a5d2a6;
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+  }
+
+.dislikeButton{
+    position:relative;
+    height: 20px;
+    width:55px;
+    background-color: red;
+    border: 2px outset #91c092;
+    top: 10px;
+    text-align: center;
+    margin-left: 15px;
+    float: left;
+    color: white;
+}
+
+.dislikeButton:hover{
+    background-color: darkred;
+}
+
+.dislikeButton:active {
+    background-color: lightcoral;
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+  }
+
+.shareButton{
+    position:relative;
+    height: 20px;
+    width:55px;
+    background-color: blue;
+    border: 2px outset #91c092;
+    top: 10px;
+    text-align: center;
+    margin-right: 15px;
+    float: right;
+    color: white;
+    }
+
+.shareButton:hover{
+    background-color: navy;
+}
+
+.shareButton:active {
+    background-color: lightblue;
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+  }
+
+/*parent div of entire comments section*/
+.commentsection{
+    width: 900px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(174, 174, 174);
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
+    margin-bottom: 30px;
+
+}
+
+/* div of each indidual comment, user, icon, and words */
+.message{
+    margin-bottom: 0px;
+    max-width: 100%;
+    max-height: fit-content;
+}
+
+/* div user image in comments*/
+.commentIcondiv{
+    float:left; margin-right: 10px;
+}
+
+/* user image refit for comments*/
+.commenticon{
+    width:18px;
+    height:18px
+}
+
+/*div for usernames of commenters*/
+.user {
+    float:left; font-weight:bold; color:#009; margin-bottom: 5px;
+}
+
+/*div for the actual content of comments*/
+.comment{
+    margin-left: 30px;font-style:italic; color:black;
+    overflow-wrap:break-word;
+}
+
+/*p for login to comment message*/
+#loginmessage{
+    color: gray;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-style: italic;
+
+}
+
