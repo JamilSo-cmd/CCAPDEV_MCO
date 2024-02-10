@@ -53,13 +53,15 @@
 
 #sideButton{
     position: fixed;
-    width:280px;
+    width:250px;
     height:50; 
     background-color: hsl(0, 0%, 78%);
     border: 1px solid hsl(0, 0%, 70%);
     padding-left: 20px;
     font-size: 1.2rem;
     text-align: justify;
+    text-decoration: none;
+    color: black;
 }
 
 .postWindow{
@@ -116,7 +118,7 @@
 .profileWindow {
     margin-bottom: 2%;
     text-align: center;
-    width: 1200px;
+    width: 1100px;
     height: 450px;
     border: 10px solid rgb(78, 163, 121);
     border-radius: 1rem;
@@ -168,7 +170,7 @@
 
 /* found below the profileWindow, about how the you can see posts from this user*/
 .morePostsWindow {
-    width: 1200px;
+    width: 1170px;
     height: 80px;
     background-color: rgb(109, 202, 109);
     margin: auto;
