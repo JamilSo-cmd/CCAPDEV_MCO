@@ -112,23 +112,23 @@
     margin-bottom: 30px;
 }
 
+/* window with profile info */
 .profileWindow {
-    margin-bottom: 4%;
-    padding-bottom: 4%;
+    margin-bottom: 2%;
     text-align: center;
     width: 1200px;
-    height: 400px;
-    border: 1px solid rgb(78, 163, 121);
+    height: 450px;
+    border: 10px solid rgb(78, 163, 121);
     border-radius: 1rem;
     background-color: lightgreen;
 }
 
+/* for images that are profile pictures (circle) */
 .profilePic {
     width: 200px;
     height: 200px;
     border-radius: 85%;
-    border-color: #91c092;
-    border-width: 1rem;
+    border: 6px solid rgb(25, 143, 35);
     position: relative;
     right: 40%;
     top: 5%;
@@ -140,7 +140,7 @@
     background-color: aliceblue;
     position: relative;
     left: 20%;
-    bottom: 45%;
+    bottom: 40%;
     box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
 }
 
@@ -161,9 +161,18 @@
     width: 800px;
     background-color: aliceblue;
     position: relative;
-    bottom: 40%;
+    bottom: 37%;
     left: 3.5%;
     box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
+}
+
+/* found below the profileWindow, about how the you can see posts from this user*/
+.morePostsWindow {
+    width: 1200px;
+    height: 80px;
+    background-color: rgb(109, 202, 109);
+    margin: auto;
+    margin-bottom: 2%;
 }
 
 .highlight:hover{
@@ -360,4 +369,3 @@ h1 {
     font-style: italic;
 
 }
-
