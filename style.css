@@ -240,7 +240,7 @@ h1 {
 .logincontainer {
     width: 700px;
     height: 700px;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.5); 
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -253,8 +253,33 @@ h1 {
 /* input details container box */
 .inputcontainer {
     width: 500px;
-    height: 300px;
-    background-color: #a5d2a6;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 50px;
+    font-size: large;
+    color: white;
+}
+
+/* Adjust width of input fields */
+.inputcontainer input[type="text"],
+.inputcontainer input[type="password"] {
+    width: 130%; 
+    padding: 10px; 
+    box-sizing: border-box; 
+}
+
+/* Sign up link */
+.signup-button {
+    color: white;
+}
+
+/* sign up container box */
+.signupcontainer {
+    width: 700px;
+    height: 700px;
+    background-color: rgba(0, 0, 0, 0.5); 
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -262,6 +287,38 @@ h1 {
     align-items: center;
     margin: auto;
     margin-top: 50px;
+}
+
+/* input for sign up details container box */
+.signup-inputcontainer {
+    width: 500px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 50px;
+    font-size: large;
+    color: white;
+}
+
+/* Adjust width of input fields */
+.signup-inputcontainer input[type="text"],
+.signup-inputcontainer input[type="password"] {
+    width: 250%; 
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.login-background-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.signup-background-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* div for like, comment, and/or share buttons*/
