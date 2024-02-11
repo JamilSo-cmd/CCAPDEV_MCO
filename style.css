@@ -167,11 +167,12 @@
     margin: auto;
     text-align: left;
     display: block;
+    font-size: 1.8rem;
 }
 
 .emphasisText {
     color: red;
-    font-size: large;
+    font-size: larger;
 }
 
 /* window for the description section of the profile */
