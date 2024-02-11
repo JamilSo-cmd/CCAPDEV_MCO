@@ -156,6 +156,7 @@
     left: 20%;
     bottom: 40%;
     box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
+    word-wrap: break-word;
 }
 
 .personalInfoText {
@@ -178,6 +179,12 @@
     bottom: 37%;
     left: 3.5%;
     box-shadow: 0px 0px 10px 0px rgb(128, 128, 128);
+    text-align: left;
+}
+
+.descText {
+    font-size: larger;
+    display: block;
 }
 
 /* found below the profileWindow, about how the you can see posts from this user*/
