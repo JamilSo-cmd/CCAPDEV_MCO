@@ -360,17 +360,6 @@ h1 {
     background-color:darkgreen;
 }
 
-.confirmProfileButton {
-    position: relative;
-    border: 2px outset #91c092;
-    height: 40px;
-    width: 80px;
-    left: 58%;
-    bottom: 58%;
-    background-color: #a5d2a6;
-    box-shadow: 0 1px #666;
-}
-
 .likebutton:active {
     background-color: #a5d2a6;
     box-shadow: 0 1px #666;
@@ -398,7 +387,81 @@ h1 {
     background-color: lightcoral;
     box-shadow: 0 1px #666;
     transform: translateY(1px);
-  }
+}
+
+#likeCount {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: green;
+    margin-left: -815px;
+}
+
+#dislikeCount {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: red;
+}
+
+#commentLikeCount {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: green;
+    margin-left: -72px;
+}
+
+#commentDislikeCount {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: red;
+    margin-left: 5px;
+}
+
+/* Duplicate IDs for sample data (can delete later) ******************************/
+#commentLikeCount2 {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: green;
+    margin-left: -72px;
+}
+
+#commentDislikeCount2 {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: red;
+    margin-left: 5px;
+}
+
+#commentLikeCount3 {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: green;
+    margin-left: -72px;
+}
+
+#commentDislikeCount3 {
+    position: relative;
+    top: -10px; /* Adjusted position above the button */
+    width: 100%;
+    text-align: center;
+    color: red;
+    margin-left: 5px;
+}
+
+/**********************************************************************************/
 
 .shareButton{
     position:relative;
@@ -421,7 +484,7 @@ h1 {
     background-color: lightblue;
     box-shadow: 0 1px #666;
     transform: translateY(1px);
-  }
+}
 
 /*parent div of entire comments section*/
 .commentsection{
