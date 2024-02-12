@@ -16,7 +16,7 @@
         <!--Containers for Signup-->
         <div class="signupcontainer">
             <div class="signup-inputcontainer">
-                <form action="index.html" method="GET">
+                <form action="index.html" method="GET" onsubmit="return matchPassword()">
                     <label for="dlsuemail">DLSU E-mail Address:</label><br><br>
                     <input type="email" id="dlsuemail" name="dlsuemail"><br><br>
                     <label for="username">Username:</label><br><br>
@@ -30,6 +30,21 @@
             </div>
         </div>
         
+        <script>
+            function matchPassword() {
+                var password = document.getElementById("password").value;
+                var confirmpassword = document.getElementById("confirmpassword").value;
+    
+                // Check if password and confirmpassword match
+                if (password === confirmpassword) {
+                    return true; // Proceed with account creation
+                } else {
+                    alert("Passwords do not match. Please try again.");
+                    return false; // Prevent account creation
+                }
+            }
+        </script>
+
     </body>
 
 </html>
