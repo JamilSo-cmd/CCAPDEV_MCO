@@ -50,13 +50,11 @@
                     
                     <div class="sidePanel">
                             
-                        <a href="index.html"><div id="sideButton"  class="highlight" style="top:80px;"><p>HOME</p></div></a>
+                        <a id="sideButton" href="index.html"><div  class="highlight" style="top:80px;"><p>HOME</p></div></a>
 
                         <a href="profile.html"><div id="sideButton" class="highlight" style="top:140px;"><p>PROFILE</p></div></a>
-
-                        <a href="profile.html"><div id="sideButton" class="highlight" style="top:200px;"><p>EDIT PROFILE</p></div></a>
                          
-                        <a href="create.html"><div id="sideButton" class="highlight" style="top:650px;"><p>+ CREATE POST</p></div></a>
+                        <a href="create.html"><div id="sideButton" class="highlight" style="top:600px;"><p>+ CREATE POST</p></div></a>
 
                     </div>
             
@@ -79,9 +77,14 @@
                                 <p>Anyone have any advice on making a web application? Im still new to it so id be glad to get some pointers.</p></div>
                             <!-- <Like,dislike,share button bar> -->
                             <div class="reactionbar"> 
-                                <button type = "submit" class = "likeButton"> Like </button> 
-                                <button type = "submit" class = "dislikeButton"> Dislike </button> 
-                                <button type = "submit" class = "shareButton"> Edit </button>
+
+                                <button type="button" class="likeButton" onclick="incrementLikes()"> Like </button> 
+                                <span id="likeCount">0</span>
+
+                                <button type="button" class="dislikeButton" onclick="incrementDislikes()"> Dislike </button> 
+                                <span id="dislikeCount">0</span>
+                                
+                                <button type="button" class="shareButton"> Share </button>
                             
                             </div>
                         </div>
@@ -101,11 +104,16 @@
                                         <div class="user"><a href>User1</a></div>
                                         <div style="clear:both;"></div>
                                         <div class="comment">Im also stuck on that problem</div>
+                                        <br>
 
                                         <!-- <Like,dislike button bar> -->
                                         <div class="reactionbar"> 
-                                            <button type = "submit" class = "likeButton"> Like </button> 
-                                            <button type = "submit" class = "dislikeButton"> Dislike </button> 
+
+                                            <button type="button" class="likeButton" onclick="incrementCommentLikes()"> Like </button> 
+                                            <span id="commentLikeCount">0</span>
+
+                                            <button type="button" class="dislikeButton" onclick="incrementCommentDislikes()"> Dislike </button> 
+                                            <span id="commentDislikeCount">0</span> 
                                           
                                         
                                         </div>
@@ -122,11 +130,16 @@
                                         <div class="user"><a href>User2</a></div>
                                         <div style="clear:both;"></div>
                                         <div class="comment">Im not sure if i have a solution to that</div>
+                                        <br>
 
                                         <!-- <Like,dislike button bar> -->
                                         <div class="reactionbar"> 
-                                            <button type = "submit" class = "likeButton"> Like </button> 
-                                            <button type = "submit" class = "dislikeButton"> Dislike </button> 
+
+                                            <button type="button" class="likeButton" onclick="incrementCommentLikes2()"> Like </button> 
+                                            <span id="commentLikeCount2">0</span>
+
+                                            <button type="button" class="dislikeButton" onclick="incrementCommentDislikes2()"> Dislike </button> 
+                                            <span id="commentDislikeCount2">0</span> 
                                           
                                         
                                         </div>
@@ -143,13 +156,17 @@
                                     <div class="user"><a href>User3</a></div>
                                     <div style="clear:both;"></div>
                                     <div class="comment">Same dude</div>
+                                    <br>
 
                                     <!-- <Like,dislike button bar> -->
                                     <div class="reactionbar"> 
-                                        <button type = "submit" class = "likeButton"> Like </button> 
-                                        <button type = "submit" class = "dislikeButton"> Dislike </button> 
+
+                                        <button type="button" class="likeButton" onclick="incrementCommentLikes3()"> Like </button> 
+                                        <span id="commentLikeCount3">0</span>
+
+                                         <button type="button" class="dislikeButton" onclick="incrementCommentDislikes3()"> Dislike </button> 
+                                        <span id="commentDislikeCount3">0</span> 
                                        
-                                    
                                     </div>
                                 </div>
                             </div>
@@ -167,6 +184,63 @@
             </tr>
         </table>    
                 
+        <script>
+
+            let likes = 0;
+            let dislikes = 0;
+            let commentLikes = 0;
+            let commentDislikes = 0;
+
+            // Duplicate variables for sample data
+            let commentLikes2 = 0;
+            let commentDislikes2 = 0;
+            let commentLikes3 = 0;
+            let commentDislikes3 = 0;
+
+            function incrementLikes() {
+                likes++;
+                document.getElementById('likeCount').textContent = likes;
+            }
+
+            function incrementDislikes() {
+                dislikes++;
+                document.getElementById('dislikeCount').textContent = dislikes;
+            }
+
+            function incrementCommentLikes() {
+                commentLikes++;
+                document.getElementById('commentLikeCount').textContent = commentLikes;
+            }
+
+            function incrementCommentDislikes() {
+                commentDislikes++;
+                document.getElementById('commentDislikeCount').textContent = commentDislikes;
+            }
+
+            // Temporary duplicate functions for sample data *****************************************************
+
+            function incrementCommentLikes2() {
+                commentLikes2++;
+                document.getElementById('commentLikeCount2').textContent = commentLikes2;
+            }
+
+            function incrementCommentDislikes2() {
+                commentDislikes2++;
+                document.getElementById('commentDislikeCount2').textContent = commentDislikes2;
+            }
+
+            function incrementCommentLikes3() {
+                commentLikes3++;
+                document.getElementById('commentLikeCount3').textContent = commentLikes3;
+            }
+
+            function incrementCommentDislikes3() {
+                commentDislikes3++;
+                document.getElementById('commentDislikeCount3').textContent = commentDislikes3;
+            }
+
+        </script>
+
     </body>
 
 </html>
