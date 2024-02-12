@@ -37,7 +37,6 @@
 .sideBox{    
     background-color:hsl(0, 0%, 91%);
     width: 300px;
-    height: 100%;
     border-right: 2px solid hsl(0, 0%, 70%);
 }
 
