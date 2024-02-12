@@ -263,7 +263,7 @@ h1 {
 }
 
 /* Adjust width of input fields */
-.inputcontainer input[type="text"],
+.inputcontainer input[type="email"],
 .inputcontainer input[type="password"] {
     width: 130%; 
     padding: 10px; 
@@ -303,7 +303,8 @@ h1 {
 
 /* Adjust width of input fields */
 .signup-inputcontainer input[type="text"],
-.signup-inputcontainer input[type="password"] {
+.signup-inputcontainer input[type="password"],
+.signup-inputcontainer input[type="email"] {
     width: 250%; 
     padding: 10px;
     box-sizing: border-box;
