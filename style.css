@@ -344,6 +344,17 @@ h1 {
     height: 40px;
 }
 
+.confirmProfileButton {
+    position: relative;
+    border: 2px outset #91c092;
+    height: 40px;
+    width: 80px;
+    left: 58%;
+    bottom: 58%;
+    background-color: #a5d2a6;
+    box-shadow: 0 1px #666;
+}
+
 .likeButton{
     position:relative;
     height: 20px;
