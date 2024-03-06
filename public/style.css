@@ -72,11 +72,12 @@
 }
 
 .trendBody{
+    padding: 10px;
     position: fixed;
-    left: 800px;
-    width: 300px;
-    min-height: 600px;
-    max-height: 600px;
+    bottom: 25px;
+    right:80px;
+    width: 350px;
+    height: 700px;
     display: flex;
     flex-direction: column;
     border: 1px solid rgb(174, 174, 174);
@@ -492,7 +493,7 @@ h1 {
     position:relative;
     height: 20px;
     width:55px;
-    background-color: blue;
+    background-color: rgb(33, 105, 213);
     border: 2px outset #91c092;
     top: 10px;
     text-align: center;
