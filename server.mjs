@@ -33,7 +33,6 @@ async function connectToMongoDB() {
 // Initialize MongoDB connection
 connectToMongoDB();
 
-// Your route handlers go here...
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
