@@ -136,7 +136,11 @@ app.post('/signup', async (req, res) => {
       const result = await usersCollection.insertOne({
           email: email,
           username: username,
-          password: password
+          password: password,
+          description: "",
+          dlsuID: "",
+          dlsuRole: "",
+          gender: ""
       });
 
       // If insertion is successful, respond with a success message
