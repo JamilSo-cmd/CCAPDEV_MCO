@@ -16,15 +16,20 @@
         <!--Containers for Signup-->
         <div class="signupcontainer">
             <div class="signup-inputcontainer">
-                <form action="index.html" method="GET" onsubmit="return matchPassword()">
-                    <label for="dlsuemail">DLSU E-mail Address:</label><br><br>
-                    <input type="email" id="dlsuemail" name="dlsuemail"><br><br>
+                <form action="/signup" method="post" onsubmit="return matchPassword()">
+
+                    <label for="email">DLSU E-mail Address:</label><br><br>
+                    <input type="email" id="email" name="email"><br><br>
+
                     <label for="username">Username:</label><br><br>
                     <input type="text" id="username" name="username"><br><br>
+
                     <label for="password">Password:</label><br><br>
                     <input type="password" id="password" name="password"><br><br>
+                    
                     <label for="password">Re-enter Password:</label><br><br>
                     <input type="password" id="confirmpassword" name="confirmpassword"><br><br><br>
+
                     <input type="submit" value="Create Account"><br>
                 </form>
             </div>
