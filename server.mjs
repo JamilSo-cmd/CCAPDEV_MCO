@@ -64,6 +64,7 @@ app.get('/login', (req, res) =>{
 
 });
 
+// Handle logging in and validation that user exists in DB
 app.post('/login', async (req, res) => {
   try {
     // Extract email and password from the request body
@@ -86,7 +87,7 @@ app.post('/login', async (req, res) => {
     }
 
     // If authentication successful, redirect to profile page or dashboard
-    return res.redirect('/profile.html'); // Change the redirect URL as needed
+    return res.redirect('/index.html'); // Change the redirect URL as needed
 
   } catch (error) {
     console.error("Error occurred during login:", error);
@@ -118,6 +119,7 @@ app.get('/signup', (req, res) =>{
 
 });
 
+// Handle registering users to the DB
 app.post('/signup', async (req, res) => {
   try {
       // Extract email, username, and password from the request body
