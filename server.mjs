@@ -42,23 +42,33 @@ app.listen(port, () => {
 
 app.use('/', express.static('public', {index: "index.html"}))
 
+app.get('/index', (req, res) =>{
+
+  res.sendFile('./public/index.html', { root: __dirname });
+
+});
 
 //WIP 
-app.get('/posts', (req,res) =>{
+app.get('/posts', async (req,res) =>{
 
   const postCollection = client.db("ForumsDB").collection("Posts");
 
   // Execute query 
   const cursor = postCollection.find();
 
+  
   // Print a message if no documents were found
-  if ((postCollection.countDocuments(query)) === 0) {
+  if ((postCollection.countDocuments()) === 0) {
     console.log("No documents found!");
   }
-  // Print returned documents
-  for (const doc of cursor) {
-    console.dir(doc);
-  }
+
+  // for (const doc of cursor) {
+  //   console.dir(doc);
+  // }
+  const array =  await cursor.toArray();
+
+  res.status(200).json(array);
+  
 
 });
 
