@@ -94,7 +94,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 // function for getting profile info (WIP)
 app.get('/userData', (req, res) => {
   const userData = [{
@@ -107,8 +106,6 @@ app.get('/userData', (req, res) => {
   res.json(userData);
 })
 
-=======
->>>>>>> 32133ff (Adding functionality to create.html)
 app.get('/profile', (req, res) =>{
 
   res.sendFile('./public/profile.html', { root: __dirname });
