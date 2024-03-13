@@ -5,6 +5,7 @@
 
         <title>Home Page</title>
         <link rel="stylesheet" href="style.css">
+        <script src="create.js"></script>
     </head>
 
     <body>
@@ -57,21 +58,11 @@
                             </div>
                             <!--Post Contents -->
                             <div class="postBody">
-                                <form action="/create" method="post" id="createForm">
+                                <form action="/create">
                                 <!-- <form id="createForm" onsubmit="createPost()"> -->
-                                    <h3 style="margin: 0;">Subject:</h3><input style="width:400px;" type="text" id="subject" name="subject">
+                                    <h3 style="margin: 0;">Your Post has been Created</h3>
                                     <hr>
-                                    <h3 style="margin: 0;">Message:</h3><input style="height: 200px; width:400px;" type="text" id="message" name="message">
-                                    <hr>
-                                    <h3>Tags:</h3>
-                                    <select id="tags" name="tag">
-                                        <option value="General">General</option>
-                                        <option value="School">School</option>
-                                        <option value="Enterntainment">Enterntainment</option>
-                                        <option value="Technical">Technical</option>
-                                        </select>
-                                    <hr>
-                                    <br><input style="margin-top: 20px;" type="submit">
+                                    <br><input style="margin-top: 20px;" type="submit" value ="Continue">
                                 </form>
                             </div>
                             <div class="postFooter"><p></p></div>
