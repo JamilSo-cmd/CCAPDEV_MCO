@@ -30,16 +30,6 @@ async function connectToMongoDB() {
   }
 }
 
-// function for getting profile info (WIP)
-app.get('/public/profile', (req, res) => {
-  const userData = [{
-    username: 'Johnny',
-    dlsuID: '121',
-    role: 'Student',
-    gender: 'Male'}]
-  
-  res.json(userData);
-})
 
 // Initialize MongoDB connection
 connectToMongoDB();
@@ -104,6 +94,17 @@ app.post('/login', async (req, res) => {
     return res.status(500).json({ message: "Internal server error." });
   }
 });
+
+// function for getting profile info (WIP)
+app.get('../MCO_github/server.mjs/userData', (req, res) => {
+  const userData = [{
+    username: 'Johnny',
+    dlsuID: '121',
+    role: 'Student',
+    gender: 'Male'}];
+  
+  res.json(userData);
+})
 
 app.get('/profile', (req, res) =>{
 

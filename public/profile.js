@@ -1,14 +1,13 @@
-import { response } from "express";
-
 $(document).ready(function () {
 
-    fetch('/public/profile')
+    $("#profileRole").text("Javascript loaded");
+
+    fetch('/userData')
         .then(response => response.json())
-        .then(alert(userData));
+        .then(userData => console.log(userData));
 
-    $("#profileName").text("Javascript loaded");
-
-    alert("Javascript loaded");
-
+    /*async function updateProfile() {
+        const response = fetch('/userData')
+    }*/
 
 });
