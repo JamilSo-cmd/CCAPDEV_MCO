@@ -13,7 +13,7 @@ This project uses node.js as a server, and is connected to MongoDb atlas.
 ## Members
 
 The members responsible for this project are:
--Friborg, Gert Daniel
--Donaire, Lorenzo Lyon
--Tan, Josef Michael
--So, Brandon Jamil
+- Friborg, Gert Daniel
+- Donaire, Lorenzo Lyon
+- Tan, Josef Michael
+- So, Brandon Jamil
