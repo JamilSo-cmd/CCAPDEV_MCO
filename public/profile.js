@@ -6,8 +6,4 @@ $(document).ready(function () {
         .then(response => response.json())
         .then(userData => console.log(userData));
 
-    /*async function updateProfile() {
-        const response = fetch('/userData')
-    }*/
-
 });
