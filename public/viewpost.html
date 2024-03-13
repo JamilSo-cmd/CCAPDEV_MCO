@@ -24,8 +24,6 @@
 
     
 
-    <script src = "loggedIn.js"></script>
-
 
     <body>
         <table class="main">
@@ -168,7 +166,8 @@
             </tr>
         </table>    
         
-   
+        <script src = "loggedIn.js"></script>
+
         <script>
             let postLiked = false;
             let postDisliked = false; 
@@ -183,29 +182,34 @@
             let commentLikes2 = 0;
             let commentDislikes2 = 0;
             
-            function incrementLikes() {
-                if (postLiked == false){
-                    likes++;
-                    document.getElementById('likeCount').textContent = likes;
-                    postLiked = true
-            
-                    if (postDisliked == true){
-                        dislikes--;
-                        document.getElementById('dislikeCount').textContent = dislikes
-                        postDisliked = false
-            
+                function incrementLikes() {
+                    if (loggedIn){
+                        if (postLiked == false){
+                            likes++;
+                            document.getElementById('likeCount').textContent = likes;
+                            postLiked = true
+                
+                        if (postDisliked == true){
+                            dislikes--;
+                            document.getElementById('dislikeCount').textContent = dislikes
+                            postDisliked = false
+                
+                        }
+                        }
+                        else if (postLiked == true){
+                            likes--;
+                            document.getElementById('likeCount').textContent = likes;
+                            postLiked = false;
+                            postDisliked = false
+                        }
+                    }
+                    else{
+                        alert("Please Log in")
                     }
                 }
-                else if (postLiked == true){
-                    likes--;
-                    document.getElementById('likeCount').textContent = likes;
-                    postLiked = false;
-                    postDisliked = false
-            
-                }
-            }
             
             function incrementDislikes() {
+                if (loggedIn){
                 if (postDisliked == false){
                     dislikes++;
                     document.getElementById('dislikeCount').textContent = dislikes;
@@ -224,6 +228,10 @@
                     postLiked = false;
                     postDisliked = false
             
+                }
+            }
+                else{
+                    alert("Please Log in")
                 }
             }
             
@@ -260,27 +268,16 @@
                 document.getElementById("commentBox").style.visibility = "hidden"
                 document.getElementById("postComment").style.visibility = "hidden"
 
-                sidebuttonsList = document.getElementsByClassName("sideButtons")
-
-                for (var x = 0; x < sidebuttonsList.length ; x++) {
-                sidebuttonsList[x+1].style.visibility = "hidden";
-                }
-
-                document.getElementById("homeButton").style.visibility = "hidden"
+                
                 
             }
             
             if(loggedIn === true){
                 document.getElementById("loginmessage").innerHTML = "Leave a Comment: "
-                document.getElementById("loginlogouttext").innerHTML = "LOG OUT"
+             
                 
             }
 
-            
-
-
-            
-            
             function add(){
                 const itemHTML = `<div class="postHeader">
                                 <div class="message">

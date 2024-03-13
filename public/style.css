@@ -50,7 +50,7 @@
     height: 400px;
 }
 
-#sideButton{
+.sideButtons{
     position: fixed;
     width:250px;
     height:50px; 
@@ -61,6 +61,8 @@
     text-align: justify;
     text-decoration: none;
     color: black;
+    visibility: visible;
+   
 }
 
 .postWindow{
@@ -233,11 +235,13 @@
     margin-bottom: 2%;
 }
 
-.highlight:hover{
+.highlight, .sideButtons:hover{
     filter: brightness(85%);
 }
 
-#button{
+
+
+#loginoutbutton, #searchbutton{
     height: 50px;
     width:100px;
     background-color: #a5d2a6;
