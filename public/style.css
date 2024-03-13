@@ -74,10 +74,10 @@
 .trendBody{
     padding: 10px;
     position: fixed;
-    bottom: 25px;
-    right:80px;
+    bottom: 20px;
+    right:30px;
     width: 350px;
-    height: 700px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     border: 1px solid rgb(174, 174, 174);
