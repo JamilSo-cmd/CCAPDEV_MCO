@@ -30,7 +30,6 @@ async function connectToMongoDB() {
   }
 }
 
-
 // Initialize MongoDB connection
 connectToMongoDB();
 
@@ -95,6 +94,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // function for getting profile info (WIP)
 app.get('/userData', (req, res) => {
   const userData = [{
@@ -107,6 +107,8 @@ app.get('/userData', (req, res) => {
   res.json(userData);
 })
 
+=======
+>>>>>>> 32133ff (Adding functionality to create.html)
 app.get('/profile', (req, res) =>{
 
   res.sendFile('./public/profile.html', { root: __dirname });
@@ -116,6 +118,49 @@ app.get('/profile', (req, res) =>{
 app.get('/create', (req, res) =>{
 
   res.sendFile('./public/create.html', { root: __dirname });
+
+});
+
+// registers posts into the db
+app.post('/create',async (req,res) => {
+  console.log("test");
+  try{
+
+    const {subject,message,tag} = req.body;
+
+    if (!subject || !message || !tag){
+      return res.status(400).json({message: "All fields are required."});
+    }
+    
+    const date = new Date(Date.now()).toUTCString();
+
+    const postsCollection = client.db("ForumsDB").collection("Posts");
+
+    const result = await postsCollection.insertOne({
+      email:"",
+      subject:subject,
+      message:message,
+      tag:tag,
+      date:date,
+      dislikes: 0,
+      likes: 0,
+    });
+
+    console.log("test");
+  // If insertion is successful, respond with a success message
+    res.redirect("/success");
+
+  }
+  catch(error){
+      console.error("Error occurred during post creation.", error);
+      return res.status(500).json({ message: "Internal server error." });
+  }
+
+});
+
+app.get('/success', (req, res) =>{
+
+  res.sendFile('./public/createConfirm.html', { root: __dirname });
 
 });
 
