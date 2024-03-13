@@ -1,9 +1,14 @@
+import { response } from "express";
+
 $(document).ready(function () {
 
-    $("#submitBtn").click(function(){
+    fetch('/public/profile')
+        .then(response => response.json())
+        .then(alert(userData));
 
-        alert("testing");
+    $("#profileName").text("Javascript loaded");
 
-    });          
+    alert("Javascript loaded");
+
 
 });

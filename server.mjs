@@ -30,6 +30,17 @@ async function connectToMongoDB() {
   }
 }
 
+// function for getting profile info (WIP)
+app.get('/public/profile', (req, res) => {
+  const userData = [{
+    username: 'Johnny',
+    dlsuID: '121',
+    role: 'Student',
+    gender: 'Male'}]
+  
+  res.json(userData);
+})
+
 // Initialize MongoDB connection
 connectToMongoDB();
 
