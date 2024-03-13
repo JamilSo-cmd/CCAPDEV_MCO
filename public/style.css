@@ -183,6 +183,15 @@
     font-size: 1.8rem;
 }
 
+.profileInfoTable {
+    border: 5px solid rgb(3, 100, 3);
+}
+
+.profileInfoCell {
+    border: 2px solid rgb(109, 202, 109);
+    font-size: 1.6rem;
+}
+
 .emphasisText {
     color: red;
     font-size: larger;
