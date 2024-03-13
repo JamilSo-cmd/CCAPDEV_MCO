@@ -6,6 +6,8 @@ const app = express();
 const port = 3000;
 const __dirname = path.resolve();
 
+var curUser; // should be a username
+
 app.use(express.urlencoded({ extended: true })); // Add this line for form data
 
 
@@ -87,6 +89,7 @@ app.post('/login', async (req, res) => {
     }
 
     // If authentication successful, redirect to profile page or dashboard
+    curUser = user; // assigns global variable to the user who just logged in
     return res.redirect('/index.html'); // Change the redirect URL as needed
 
   } catch (error) {
@@ -98,11 +101,11 @@ app.post('/login', async (req, res) => {
 // function for getting profile info (WIP)
 app.get('/userData', (req, res) => {
   const userData = [{
-    username: 'Johnny',
-    dlsuID: '121',
-    role: 'Student',
-    gender: 'Male',
-    description: 'Very cool'}];
+    username: curUser.username,
+    dlsuID: curUser.dlsuID,
+    role: curUser.role,
+    gender: curUser.gender,
+    description: curUser.description}];
   
   res.json(userData);
 })
