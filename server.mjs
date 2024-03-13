@@ -102,7 +102,7 @@ app.get('/userData', (req, res) => {
   const userData = [{
     username: curUser.username,
     dlsuID: curUser.dlsuID,
-    role: curUser.role,
+    role: curUser.dlsuRole,
     gender: curUser.gender,
     description: curUser.description}];
   
