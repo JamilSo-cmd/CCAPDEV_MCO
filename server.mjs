@@ -101,7 +101,8 @@ app.get('/userData', (req, res) => {
     username: 'Johnny',
     dlsuID: '121',
     role: 'Student',
-    gender: 'Male'}];
+    gender: 'Male',
+    description: 'Very cool'}];
   
   res.json(userData);
 })
