@@ -96,7 +96,7 @@ app.post('/login', async (req, res) => {
 });
 
 // function for getting profile info (WIP)
-app.get('../MCO_github/server.mjs/userData', (req, res) => {
+app.get('/userData', (req, res) => {
   const userData = [{
     username: 'Johnny',
     dlsuID: '121',
