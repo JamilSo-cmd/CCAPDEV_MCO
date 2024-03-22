@@ -35,6 +35,7 @@ async function connectToMongoDB() {
 // Initialize MongoDB connection
 connectToMongoDB();
 
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
@@ -167,19 +168,13 @@ app.post('/create',async (req,res) => {
 
     console.log("test");
   // If insertion is successful, respond with a success message
-    res.redirect("/success");
+    res.redirect("/index");
 
   }
   catch(error){
       console.error("Error occurred during post creation.", error);
       return res.status(500).json({ message: "Internal server error." });
   }
-
-});
-
-app.get('/success', (req, res) =>{
-
-  res.sendFile('./public/createConfirm.html', { root: __dirname });
 
 });
 
