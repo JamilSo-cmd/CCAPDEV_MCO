@@ -72,7 +72,7 @@
 }
 
 .trendBody{
-    padding: 10px;
+    padding: 0px;
     position: fixed;
     bottom: 20px;
     right:30px;
@@ -116,6 +116,7 @@
 }
 
 .searchWindow{
+    align-items: center;
     width: 600px;
     min-height: 200px;
     max-height: 200px;
