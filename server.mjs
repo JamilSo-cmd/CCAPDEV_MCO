@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 const __dirname = path.resolve();
 
-var curUser; // should be a username
+var curUser; // should be a user
 
 app.use(express.urlencoded({ extended: true })); // Add this line for form data
 
@@ -85,6 +85,50 @@ app.get('/login', (req, res) =>{
 
 });
 
+// Handle editing profile and validation that username is unique (WIP)
+app.post('/editProfile', async (req, res) => {
+  try{
+    const {usernameInput, genderInput, dlsuIDInput, roleInput, descInput} = req.body;
+    const usersCollection = client.db("ForumsDB").collection("Users");
+    const user = await usersCollection.findOne({username: curUser.username});
+
+    // if no user with the current user's username can be found
+    if(!user){
+      console.error("User editing error", error);
+    }
+    else {
+      // there must be a valid username input for other edits to work
+      if(usernameInput) {
+        const filter = {username: usernameInput};
+        // username should be updated LAST
+        const usernameUpdate = {
+          $set: {
+            username: usernameInput
+          }}
+
+        if(genderInput) {
+          const genderUpdate = {
+            $set: {
+              gender: genderInput
+            }
+          }
+
+          usersCollection.updateOne(filter, genderUpdate);
+        }
+
+        usersCollection.updateOne(filter, usernameUpdate);
+      }
+      else {
+        console.error("User editing error", error);
+      }
+    }
+
+  } catch (error) {
+    console.error("Error occured during editing of profile info", error);
+    return res.status(500).json({ message: "Internal server error."})
+  }
+})
+
 // Handle logging in and validation that user exists in DB
 app.post('/login', async (req, res) => {
   try {
@@ -117,7 +161,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// function for getting profile info (WIP)
+// function for getting profile info
 app.get('/userData', (req, res) => {
   const userData = [{
     username: curUser.username,
