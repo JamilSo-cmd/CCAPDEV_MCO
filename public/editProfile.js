@@ -6,11 +6,12 @@ $(document).ready(function () {
                 const user = data[0]; 
                 
                 // Updates profile info in HTML based on fetch
-                document.getElementById('profileName').textContent = user.username;
-                document.getElementById('profileID').textContent = user.dlsuID;
-                document.getElementById('profileRole').textContent = user.role;
-                document.getElementById('profileGender').textContent = user.gender;
-                document.getElementById('descText').text = user.description;
+                document.getElementById('usernameInput').value = user.username;
+                document.getElementById('genderInput').value = user.gender;
+                document.getElementById('dlsuIDInput').value = user.dlsuID;
+                document.getElementById('roleInput').value = user.role;
+                document.getElementById('descInput').value = user.description;
+                console.log("Retreived relevant user data");
             } else {
                 console.error('No user data available.');
             }

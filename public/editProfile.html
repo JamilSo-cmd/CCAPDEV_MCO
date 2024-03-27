@@ -5,6 +5,8 @@
 
         <title>Home Page</title>
         <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script type ="text/javascript" src="editProfile.js" defer></script>
 
     </head>
 
@@ -57,15 +59,15 @@
                                 
                             <div class="personalInfoWindow">
                                 <p class="personalInput">
-                                    Username:<input type="text"></input></br>
-                                    Gender:<input type="text"></input></br>
-                                    DLSU ID:<input type="number"></input></br>
-                                    Role:<input type="text"></input></br>
+                                    Username:<input type="text" id="usernameInput" value=""></input></br>
+                                    Gender:<input type="text" id="genderInput"></input></br>
+                                    DLSU ID:<input type="number" id="dlsuIDInput"></input></br>
+                                    Role:<input type="text" id="roleInput"></input></br>
                                 </p>
                             </div>
 
                             <div class="descriptionWindow">
-                                <textarea class ="descEdit" name="description"></textarea>
+                                <textarea class ="descEdit" name="description" id="descInput"></textarea>
                             </div>
 
                             <input value="Confirm" type="button" class="confirmProfileButton"></input>
