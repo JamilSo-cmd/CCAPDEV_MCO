@@ -88,6 +88,7 @@ app.get('/login', (req, res) =>{
 // Handle editing profile and validation that username is unique (WIP)
 app.post('/editProfile', async (req, res) => {
   try{
+    console.log("edit Profile function started");
     const {usernameInput, genderInput, dlsuIDInput, roleInput, descInput} = req.body;
     const usersCollection = client.db("ForumsDB").collection("Users");
     const user = await usersCollection.findOne({username: curUser.username});
@@ -99,6 +100,7 @@ app.post('/editProfile', async (req, res) => {
     else {
       // there must be a valid username input for other edits to work
       if(usernameInput) {
+        console.log('username for editing found');
         const filter = {username: usernameInput};
         // username should be updated LAST
         const usernameUpdate = {
@@ -119,7 +121,7 @@ app.post('/editProfile', async (req, res) => {
         usersCollection.updateOne(filter, usernameUpdate);
       }
       else {
-        console.error("User editing error", error);
+        console.log('user editing error');
       }
     }
 
