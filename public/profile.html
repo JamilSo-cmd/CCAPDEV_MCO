@@ -88,53 +88,28 @@
                         </div>
                         <!-- Below are supposedly up to 3 recent posts from the user, though it is currently hardcoded-->
 
-                        <div class="post">
-                            <!--Post Header-->
-                            <div class="postHeader"> 
-                                <img class="icon" src="https://e0.pxfuel.com/wallpapers/547/174/desktop-wallpaper-visartheking-twitter-dog-memes-dog-icon-dog-doggo-meme.jpg">
-                                <div><a href><b>Bob Testuser</b></a></div>
-                            </div>
-                            <!--Post Contents -->
-                            <div class="postBody">
-                                <h2 style="margin: 0;">Subject here</h2>
-                                <hr>
-                                <p>Body of text here</P>
-                            </div>
-                            <div class="postFooter"><p>Page 3</p></div>
-                        </div>
-
-                        <div class="post">
-                            <!--Post Header-->
-                            <div class="postHeader"> 
-                                <img class="icon" src="https://e0.pxfuel.com/wallpapers/547/174/desktop-wallpaper-visartheking-twitter-dog-memes-dog-icon-dog-doggo-meme.jpg">
-                                <div><a href><b>Bob Testuser</b></a></div>
-                            </div>
-                            <!--Post Contents -->
-                            <div class="postBody">
-                                <h2 style="margin: 0;">Subject here</h2>
-                                <hr>
-                                <p>Body of text here</P>
-                            </div>
-                            <div class="postFooter"><p>Page 4</p></div>
-                        </div>
+                        <div class="postWindow" style="padding-right:300px;">
                         
-                        <div class="post">
-                            <!--Post Header-->
-                            <div class="postHeader"> 
-                                <img class="icon" src="https://e0.pxfuel.com/wallpapers/547/174/desktop-wallpaper-visartheking-twitter-dog-memes-dog-icon-dog-doggo-meme.jpg">
-                                <div><a href><b>Bob Testuser</b></a></div>
+                            <!--template for posts-->
+                            <div class="post" id="postTemplate">
+                                <!--Post Header-->
+                                <div class="postHeader"> 
+                                    <img class="icon">
+                                    <div><a class='username'>Test</a>
+                                        <br>
+                                        <a href="viewpost.html" style="text-decoration: none;font-size: 0.8rem;">View Post</a>
+                                        <br>
+                                        <b class='date' style="text-decoration: none;font-size: 0.8rem;"></b>
+                                    </div>
+                                </div>
+                                <!--Post Contents -->
+                                <div class="postBody">
+                                    <h2 style="margin: 0;" class="subject"></h2>
+                                    <hr>
+                                    <p class="message"></P>
+                                </div>
+                                <div class="postFooter"><p class="pageNum"></p></div>
                             </div>
-                            <!--Post Contents -->
-                            <div class="postBody">
-                                <h2 style="margin: 0;">Subject here</h2>
-                                <hr>
-                                <p>Body of text here</P>
-                            </div>
-                            <div class="postFooter"><p>Page 5</p></div>
-                        </div>
-
-                        <div class="postFooter" style="color: rgb(96, 96, 96);">
-                            <p>end of recent history</p>
                         </div>
 
                     </div>
