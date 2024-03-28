@@ -27,6 +27,9 @@ $(document).ready(function () {
                 document.getElementById('profileRole').textContent = user.dlsuRole;
                 document.getElementById('profileGender').textContent = user.gender;
                 document.getElementById('descText').text = user.description;
+
+                // set the link to "more posts by user" to the send the username of the current profile
+                document.getElementById('toUserPosts').setAttribute('href', 'userPosts.html?userToView=' + user.username);
             } else {
                 console.error('No user data available.');
             }
