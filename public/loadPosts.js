@@ -8,6 +8,8 @@ $(document).ready(function () {
 
             const newPost= $("#postTemplate").clone();
             newPost.attr('id',"");
+            newPost.find(".username").text(post.author);
+            newPost.find(".icon").attr("src", post.authorPic);
             newPost.find(".date").text(post.date);
             newPost.find(".subject").text(post.subject);
             newPost.find(".message").text(post.message);
