@@ -97,49 +97,70 @@ app.get('/login', (req, res) =>{
 
 // Handle editing profile and validation that username is unique (WIP)
 app.post('/editProfile', async (req, res) => {
-  try{
+  try {
     console.log("edit Profile function started");
-    const {usernameInput, genderInput, dlsuIDInput, roleInput, descInput} = req.body;
+    const { usernameInput, profilePicInput, genderInput, dlsuIDInput, roleInput, descInput } = req.body;
     const usersCollection = client.db("ForumsDB").collection("Users");
-    const user = await usersCollection.findOne({username: curUser.username});
+    const user = await usersCollection.findOne({ username: curUser.username });
 
-    // if no user with the current user's username can be found
-    if(!user){
-      console.error("User editing error", error);
-    }
-    else {
-      // there must be a valid username input for other edits to work
-      if(usernameInput) {
-        console.log('username for editing found');
-        const filter = {username: usernameInput};
-        // username should be updated LAST
-        const usernameUpdate = {
-          $set: {
-            username: usernameInput
-          }}
-
-        if(genderInput) {
-          const genderUpdate = {
-            $set: {
-              gender: genderInput
-            }
-          }
-
-          usersCollection.updateOne(filter, genderUpdate);
+    if (!user) {
+      console.error("User editing error: User not found");
+      return res.status(404).json({ message: "User not found." });
+    } else {
+      if (usernameInput) {
+        // Check if the new username already exists in the database
+        const existingUser = await usersCollection.findOne({ username: usernameInput });
+        if (existingUser && existingUser.username !== curUser.username) {
+          console.error("User editing error: Username already exists");
+          return res.status(400).json({ message: "Username already exists." });
         }
+      }
 
-        usersCollection.updateOne(filter, usernameUpdate);
+      const filter = { username: curUser.username };
+      const updates = {};
+
+      if (usernameInput) {
+        updates.username = usernameInput;
       }
-      else {
-        console.log('user editing error');
+      if (profilePicInput) {
+        updates.profilePic = profilePicInput;
       }
+      if (genderInput) {
+        updates.gender = genderInput;
+      }
+      if (dlsuIDInput) {
+        updates.dlsuID = dlsuIDInput;
+      }
+      if (roleInput) {
+        updates.dlsuRole = roleInput;
+      }
+      if (descInput) {
+        updates.description = descInput;
+      }
+
+      // Update the user document with the accumulated updates
+      await usersCollection.updateOne(filter, { $set: updates });
+
+      // Update curUser with the new profile information
+      if (curUser) {
+        if (usernameInput) curUser.username = usernameInput;
+        if (profilePicInput) curUser.profilePic = profilePicInput;
+        if (genderInput) curUser.gender = genderInput;
+        if (dlsuIDInput) curUser.dlsuID = dlsuIDInput;
+        if (roleInput) curUser.dlsuRole = roleInput;
+        if (descInput) curUser.description = descInput;
+      }
+
+      console.log("User profile updated successfully");
+      return res.redirect('/profile.html');
+      
+      
     }
-
   } catch (error) {
-    console.error("Error occured during editing of profile info", error);
-    return res.status(500).json({ message: "Internal server error."})
+    console.error("Error occurred during editing of profile info", error);
+    return res.status(500).json({ message: "Internal server error." });
   }
-})
+});
 
 // Handle logging in and validation that user exists in DB
 app.post('/login', async (req, res) => {
@@ -177,8 +198,9 @@ app.post('/login', async (req, res) => {
 app.get('/userData', (req, res) => {
   const userData = [{
     username: curUser.username,
+    profilePic: curUser.profilePic,
     dlsuID: curUser.dlsuID,
-    role: curUser.dlsuRole,
+    dlsuRole: curUser.dlsuRole,
     gender: curUser.gender,
     description: curUser.description}];
   
@@ -212,7 +234,8 @@ app.post('/create',async (req,res) => {
     const postsCollection = client.db("ForumsDB").collection("Posts");
 
     const result = await postsCollection.insertOne({
-      email:"",
+      author:curUser.username,
+      authorPic:curUser.profilePic,
       subject:subject,
       message:message,
       tag:tag,
@@ -264,6 +287,7 @@ app.post('/signup', async (req, res) => {
           email: email,
           username: username,
           password: password,
+          profilePic: "https://news.tulane.edu/sites/default/files/headshot_icon_0.jpg",
           description: "",
           dlsuID: "",
           dlsuRole: "",

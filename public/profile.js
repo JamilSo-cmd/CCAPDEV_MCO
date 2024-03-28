@@ -22,8 +22,9 @@ $(document).ready(function () {
                 
                 // Updates profile info in HTML based on fetch
                 document.getElementById('profileName').textContent = user.username;
+                document.getElementById('profilePic').src = user.profilePic;
                 document.getElementById('profileID').textContent = user.dlsuID;
-                document.getElementById('profileRole').textContent = user.role;
+                document.getElementById('profileRole').textContent = user.dlsuRole;
                 document.getElementById('profileGender').textContent = user.gender;
                 document.getElementById('descText').text = user.description;
             } else {
