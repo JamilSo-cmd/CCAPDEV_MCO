@@ -196,6 +196,8 @@ app.post('/login', async (req, res) => {
 
 // function for getting profile info
 app.get('/userData', (req, res) => {
+  //console.log('The backend was sent the header: ' + res.header.get('userToView'));
+
   const userData = [{
     username: curUser.username,
     profilePic: curUser.profilePic,
