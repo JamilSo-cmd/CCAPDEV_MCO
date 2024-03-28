@@ -80,6 +80,7 @@ app.get('/filter', (req, res) => {
 
   try{
     
+
     res.redirect('/search')
 
   }
@@ -198,13 +199,12 @@ app.get('/create', (req, res) =>{
 
 // registers posts into the db
 app.post('/create',async (req,res) => {
-  console.log("test");
   try{
 
     const {subject,message,tag} = req.body;
 
     if (!subject || !message || !tag){
-      return res.status(400).json({message: "All fields are required."});
+      return res.redirect('/create');
     }
     
     const date = new Date(Date.now()).toUTCString();
