@@ -63,9 +63,6 @@ app.get('/posts', async (req,res) =>{
     console.log("No documents found!");
   }
 
-  // for (const doc of cursor) {
-  //   console.dir(doc);
-  // }
   const array =  await cursor.toArray();
 
   res.status(200).json(array);
@@ -78,6 +75,18 @@ app.get('/search', (req, res) =>{
   res.sendFile('./public/search.html', { root: __dirname });
 
 });
+
+app.get('/filter', (req, res) => {
+
+  try{
+    
+    res.redirect('/search')
+
+  }
+  catch{
+
+  }
+})
 
 app.get('/login', (req, res) =>{
 
