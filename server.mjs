@@ -11,7 +11,9 @@ const __dirname = path.resolve();
 // initialize cookie-parser and session
 app.use(cookieParser());
 app.use(session({
-  
+  cookie: {
+    maxAge: (1000 * 6000)
+  }
 }));
 
 var curUser; // should be a user
