@@ -4,7 +4,15 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const app = express();
 const port = 3000;
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const __dirname = path.resolve();
+
+// initialize cookie-parser and session
+app.use(cookieParser());
+app.use(session({
+  
+}));
 
 var curUser; // should be a user
 
