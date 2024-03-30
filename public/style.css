@@ -533,6 +533,29 @@ h1 {
     transform: translateY(1px);
 }
 
+.deleteButton{
+    position:relative;
+    height: 20px;
+    width:55px;
+    background-color: red;
+    border: 2px outset #91c092;
+    top: 10px;
+    text-align: center;
+    margin-right: 15px;
+    float: left;
+    color: white;
+    }
+
+.deleteButton:hover{
+    background-color: darkred;
+}
+
+.deleteButton:active {
+    background-color: lightblue;
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+}
+
 /*parent div of entire comments section*/
 .commentsection{
     width: 900px;

@@ -53,16 +53,15 @@
                 <td>
                     <div class="postWindow">
                         <div class="post" style="width: 600px;">
-                            <!--Post Header-->
+                            <!-- Post Header -->
                             <div class="postHeader"> 
                                 <div><b><h1 style="margin: 0px;padding-left: 5px;">Edit Content</h1></b></div>
                             </div>
-                            <!--Post Contents -->
+                            <!-- Post Contents -->
                             <div class="postBody">
                                 <form action="/editPost" method="post" id="editPostForm">
                                     <!-- Hidden input field for postId -->
-                                    <input type="hidden" id="postId" name="postId" value="66053c349e6f82ddb1f05419">
-                    
+                                    <input type="hidden" id="postId" name="postId" value="66053dfd05eb4a987ca14d78">
                                     <h3 style="margin: 0;">Subject:</h3><input style="width:400px;" type="text" id="subject" name="subject" required>
                                     <hr>
                                     <h3 style="margin: 0;">Message:</h3><textarea style="height: 200px; width:400px;" id="message" name="message" required></textarea>
@@ -77,6 +76,13 @@
                                     </datalist>
                                     <hr>
                                     <br><input style="margin-top: 20px;" type="submit" value="Submit">
+                                </form>
+                                
+                                <!-- Delete Button -->
+                                <form action="/delete" method="post" id="deleteForm">
+                                    <!-- Hidden input field for postId -->
+                                    <input type="hidden" id="postIdToDelete" name="postId" value="66053dfd05eb4a987ca14d78">
+                                    <button type="submit" id="deleteButton" class="deleteButton">Delete</button>
                                 </form>
                             </div>
                             <div class="postFooter"><p></p></div>
