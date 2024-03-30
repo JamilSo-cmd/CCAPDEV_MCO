@@ -1,20 +1,21 @@
 import express from 'express';
 import path from 'path';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 const app = express();
 const port = 3000;
-const session = require("express-session");
-const cookieParser = require("cookie-parser");
 const __dirname = path.resolve();
 
 // initialize cookie-parser and session
-app.use(cookieParser());
-app.use(session({
-  cookie: {
-    maxAge: (1000 * 6000)
-  }
-}));
+// app.use(cookieParser());
+// app.use(session({
+//   cookie: {
+//     maxAge: (1000 * 6000)
+//   }
+// }));
+// i commented it for now - Jamil So
 
 var curUser; // should be a user
 
@@ -334,5 +335,11 @@ app.get('/editProfile', (req, res) =>{
 app.get('/viewpost', (req, res) =>{
 
   res.sendFile('./public/viewpost.html', { root: __dirname });
+
+});
+
+app.get('/about', (req, res) =>{
+
+  res.sendFile('./public/about.html', { root: __dirname });
 
 });
