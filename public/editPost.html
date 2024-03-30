@@ -52,7 +52,6 @@
                 <!--Content here (images are placeholders)-->
                 <td>
                     <div class="postWindow">
-                        
                         <div class="post" style="width: 600px;">
                             <!--Post Header-->
                             <div class="postHeader"> 
@@ -60,43 +59,35 @@
                             </div>
                             <!--Post Contents -->
                             <div class="postBody">
-                                <form action="/index">
-                                
-                                    <h3 style="margin: 0;">Subject:</h3><input type="text">
+                                <form action="/editPost" method="post" id="editPostForm">
+                                    <!-- Hidden input field for postId -->
+                                    <input type="hidden" id="postId" name="postId" value="66053c349e6f82ddb1f05419">
+                    
+                                    <h3 style="margin: 0;">Subject:</h3><input style="width:400px;" type="text" id="subject" name="subject" required>
                                     <hr>
-                                    <h3 style="margin: 0;">Message:</h3><input style="height: 200px; width:400px;" type="text">
-                                    
-                                    <br><button style="margin-top: 20px;" type = "submit"> Confirm </button>
-                                    <br><button style="margin-top: 20px;" type = "submit" onclick="confirmDelete()"> Delete </button>
-    
+                                    <h3 style="margin: 0;">Message:</h3><textarea style="height: 200px; width:400px;" id="message" name="message" required></textarea>
+                                    <hr>
+                                    <h3>Tag:</h3>
+                                    <input list="tagList" name="tag" id="tag" required>
+                                    <datalist id="tagList">
+                                        <option value="General">General</option>
+                                        <option value="School">School</option>
+                                        <option value="Entertainment">Entertainment</option>
+                                        <option value="Technical">Technical</option>
+                                    </datalist>
+                                    <hr>
+                                    <br><input style="margin-top: 20px;" type="submit" value="Submit">
                                 </form>
                             </div>
                             <div class="postFooter"><p></p></div>
                         </div>
-                        
-                        
-
                     </div>
+                    
                 </td>
 
             </tr>
         </table>    
-            
-        <script>
 
-            function confirmDelete() {
-
-                let text = "Are you sure you want to delete?\n";
-                if (confirm(text) == true) {
-                    window.location.href = "delete.html";
-                }
-                else {
-
-                }
-
-            }
-
-        </script>
     </body>
 
 </html>

@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { MongoClient, ServerApiVersion } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
@@ -326,6 +327,44 @@ app.get('/editPost', (req, res) =>{
 
 });
 
+app.post('/editPost', async (req, res) => {
+  try {
+    // Parse postId from the request body
+    const postId = req.body.postId;
+
+    // Extract subject and message from the request body
+    const { subject, message, tag } = req.body;
+
+    // Check if postId, subject, and message are provided
+    if (!postId || !subject || !message || !tag) {
+      return res.status(400).json({ message: "Post ID, subject, and message are required." });
+    }
+
+    // Convert postId to ObjectId
+    const objectId = new ObjectId(postId);
+
+    // Get the Posts collection from the database
+    const postsCollection = client.db("ForumsDB").collection("Posts");
+
+    // Update the post with the provided post ID
+    const result = await postsCollection.updateOne(
+      { _id: objectId }, // Using ObjectId for post IDs
+      { $set: { subject: subject, message: message, tag: tag } }
+    );
+
+    // Check if the post was updated successfully
+    if (result.modifiedCount === 1) {
+      return res.status(200).json({ message: "Post updated successfully." });
+    } else {
+      return res.status(404).json({ message: "Post not found or could not be updated." });
+    }
+  } catch (error) {
+    console.error("Error occurred during post editing:", error);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+
 app.get('/editProfile', (req, res) =>{
 
   res.sendFile('./public/editProfile.html', { root: __dirname });
@@ -333,6 +372,12 @@ app.get('/editProfile', (req, res) =>{
 });
 
 app.get('/viewpost', (req, res) =>{
+
+  res.sendFile('./public/viewpost.html', { root: __dirname });
+
+});
+
+app.post('/viewpost', (req, res) =>{
 
   res.sendFile('./public/viewpost.html', { root: __dirname });
 
