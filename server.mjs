@@ -96,10 +96,12 @@ app.get('/search', (req, res) =>{
 app.get('/filter', async (req, res) => {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
+  const SearchStr = req.body;
+
+  const Query = {subject:{SearchStr}};
 
   // Execute query 
-  const cursor = postCollection.find();
-  const SearchStr = req.body;
+  const cursor = postCollection.find(Query);
 
   
   // Print a message if no documents were found
