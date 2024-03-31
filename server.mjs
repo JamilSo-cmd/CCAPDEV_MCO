@@ -5,23 +5,29 @@ import { ObjectId } from 'mongodb';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
+// unique ID generation for sessions
+import {v4 as uuidv4} from 'uuid';
+
 const app = express();
 const port = 3000;
 const __dirname = path.resolve();
 
-// initialize cookie-parser and session
-// app.use(cookieParser());
-// app.use(session({
-//   cookie: {
-//     maxAge: (1000 * 6000)
-//   }
-// }));
-// i commented it for now - Jamil So
+// initialize session (WIP)
+app.use(session(
+  { name:'SessionCookie',
+    genid: function(req) {
+      console.log('Generated session id');
+      return uuidv4();
+    },
+    secret: 'secretpass',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, expires:60000 }
+  }));
 
 var curUser; // should be a user
 
 app.use(express.urlencoded({ extended: true })); // Add this line for form data
-
 
 // MongoDB connection setup
 const uri = "mongodb+srv://ZTORlIlsVr6pGCNc:ZTORlIlsVr6pGCNc@cluster0.bvg7nag.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
