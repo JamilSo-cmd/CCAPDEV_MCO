@@ -16,7 +16,7 @@ const __dirname = path.resolve();
 app.use(session(
   { name:'SessionCookie',
     genid: function(req) {
-      console.log('Generated session id');
+      //console.log('Generated session id');
       return uuidv4();
     },
     secret: 'secretpass',
@@ -205,6 +205,7 @@ app.post('/login', async (req, res) => {
     // If authentication successful, redirect to profile page or dashboard
     curUser = user; // assigns global variable to the user who just logged in
     req.session.userInfo = user; // sets session userInfo to be user who just logged in (WIP)
+    console.log('User logged in: ' + req.session.userInfo.username); // to see if the username was gotten correctly
     return res.redirect('/index.html'); // Change the redirect URL as needed
 
   } catch (error) {
@@ -214,18 +215,33 @@ app.post('/login', async (req, res) => {
 });
 
 // function for getting profile info
-app.get('/userData', (req, res) => {
-  //console.log('The backend was sent the header: ' + res.header.get('userToView'));
+app.get('/userData', async (req, res) => {
 
-  const userData = [{
-    'username': curUser.username,
-    'profilePic': curUser.profilePic,
-    'dlsuID': curUser.dlsuID,
-    'dlsuRole': curUser.dlsuRole,
-    'gender': curUser.gender,
-    'description': curUser.description}];
-  
-  res.json(userData);
+  try{
+    var userToView = req.header('userToView');
+
+    // if userToView is unset (probably)
+    if(!userToView) {
+      userToView = curUser;
+    }
+
+    const usersCollection = client.db("ForumsDB").collection("Users");
+
+    const userToSend = await usersCollection.findOne({ username: userToView });
+    console.log('User data being sent back is that of user: ' + userToView);
+
+    const userData = [{
+      'username': userToSend.username,
+      'profilePic': userToSend.profilePic,
+      'dlsuID': userToSend.dlsuID,
+      'dlsuRole': userToSend.dlsuRole,
+      'gender': userToSend.gender,
+      'description': userToSend.description}];
+    
+    res.json(userData);
+  } catch (error) {
+    console.error("Error locating the user with the name:" + userToView + ", Error: " , error);
+  }
 })
 
 app.get('/profile', (req, res) =>{
@@ -241,7 +257,7 @@ app.get('/create', (req, res) =>{
 });
 
 // registers posts into the db
-app.post('/create',async (req,res) => {
+app.post('/create', async (req,res) => {
   try{
 
     const {subject,message,tag} = req.body;

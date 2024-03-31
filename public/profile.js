@@ -14,16 +14,23 @@ $(document).ready(function () {
             }
         }
     }*/
+
     const userToView = new URLSearchParams(window.location.search).get('userToView');
     var viewCurrUser = 0;
     var userPostCount = 0;
     // WIP
     if(!userToView) {
         viewCurrUser = 1;
+        userToView = 'test';
+        console.log('No user to view found');
     }
             
     // gets user Data from backend
-    fetch('/userData')
+    fetch('/userData', {
+        headers: {
+            'userToView': userToView
+        }
+    })
         .then(response => response.json())
         .then(data => {
             if (data.length > 0) { 
