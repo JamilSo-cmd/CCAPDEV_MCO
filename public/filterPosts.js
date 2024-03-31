@@ -5,7 +5,7 @@ $(document).ready(function () {
         data.forEach((post,x) => {
             
             console.log(post);
-
+            
             const newPost= $("#postTemplate").clone();
             newPost.attr('id',"");
             newPost.find(".username").text(post.author);
@@ -22,7 +22,7 @@ $(document).ready(function () {
 
         
         if (post <= 0){
-            
+
             $(".postWindow").prepend("");
 
         }
