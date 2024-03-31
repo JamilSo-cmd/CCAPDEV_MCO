@@ -93,15 +93,18 @@ app.get('/search', (req, res) =>{
 
 });
 
+//in progress (trying to fix query)
 app.get('/filter', async (req, res) => {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
   const SearchStr = req.body;
 
-  const Query = {subject:{SearchStr}};
-
+  const query = {};
+  const options = {
+    sort:{subject:1}
+  };
   // Execute query 
-  const cursor = postCollection.find(Query);
+  const cursor = postCollection.find();
 
   
   // Print a message if no documents were found
@@ -112,7 +115,6 @@ app.get('/filter', async (req, res) => {
   const array =  await cursor.toArray();
 
   res.status(200).json(array);
-  res.redirect("/search");
 
 })
 

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     
-    $.get("/posts", function(data, status){
+    $.get("/filter", function(data, status){
 
         data.forEach((post,x) => {
             
@@ -20,7 +20,13 @@ $(document).ready(function () {
         });
         $(".postWindow").append("<div  class='postFooter' style='color: rgb(96, 96, 96);'><p>end of recent history</p></div>");
 
-      });
+        
+        if (post <= 0){
+            
+            $(".postWindow").prepend("");
+
+        }
+    });
 
      
 });
