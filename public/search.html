@@ -6,7 +6,7 @@
         <title>Home Page</title>
         <link rel="stylesheet" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script type ="text/javascript" src ="/loadPosts.js" defer></script>
+        <script type ="text/javascript" src ="/filterPosts.js" defer></script>
     </head>
 
     <body>
@@ -20,9 +20,11 @@
                         <!--icon (placeholder image present)-->
                         <td><div style="width:200px;"><img src="https://icons.iconarchive.com/icons/iconarchive/dogecoin-to-the-moon/512/Doge-icon.png" style="width: 40px;height: 40px;"></div></td>
                         <!--Search button-->
-                        <td><a style="text-decoration: none; color: black;" href="search"><div id="button" class="highlight"><p>SEARCH</p></div></td></a>
-                        <!--Search Text Field-->
-                        <td style="width:200px;"><input type="text" size="50" style="font-size: 18px;"></td>
+                        <form action="/filter" method="get">
+                            <td><a style="text-decoration: none; color: black;" href="search"><div id="button" class="highlight"><p>SEARCH</p></div></td></a>
+                            <!--Search Text Field-->
+                            <td style="width:200px;"><input type="text" size="50" style="font-size: 18px;" name="SearchStr"></td>
+                        </form>
                         <!--Login button-->
                         <td style="padding-left:330px;float: right;"><a class="loginbutton" href="login"><div id="button" class="highlight"><p>LOGIN</p></div></a></td>
                     </table>
@@ -59,23 +61,22 @@
                         <div class="post" id="postTemplate">
                             <!--Post Header-->
                             <div class="postHeader"> 
-                                <img class="icon" src="https://e0.pxfuel.com/wallpapers/547/174/desktop-wallpaper-visartheking-twitter-dog-memes-dog-icon-dog-doggo-meme.jpg">
-                                <div><a href="profile.html"><b>Username</b></a>
+                                <img class="icon">
+                                <div><a class='username'></a>
                                     <br>
                                     <a href="viewpost.html" style="text-decoration: none;font-size: 0.8rem;">View Post</a>
                                     <br>
-                                    <b class='date' style="text-decoration: none;font-size: 0.8rem;">Date here</b>
+                                    <b class='date' style="text-decoration: none;font-size: 0.8rem;"></b>
                                 </div>
                             </div>
                             <!--Post Contents -->
                             <div class="postBody">
-                                <h2 style="margin: 0;" class="subject">Hello There!</h2>
+                                <h2 style="margin: 0;" class="subject"></h2>
                                 <hr>
-                                <p class="message">Hello, im new to this site, nice to meet you all!</P>
+                                <p class="message"></P>
                             </div>
-                            <div class="postFooter"><p class="pageNum">Page 1</p></div>
+                            <div class="postFooter"><p class="pageNum"></p></div>
                         </div>
-
                     </div>
                 </td>
 

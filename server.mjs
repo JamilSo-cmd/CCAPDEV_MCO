@@ -74,7 +74,6 @@ app.get('/posts', async (req,res) =>{
 
   // Execute query 
   const cursor = postCollection.find();
-
   
   // Print a message if no documents were found
   if ((postCollection.countDocuments()) === 0) {
@@ -94,17 +93,25 @@ app.get('/search', (req, res) =>{
 
 });
 
-app.get('/filter', (req, res) => {
+app.get('/filter', async (req, res) => {
 
-  try{
-    
+  const postCollection = client.db("ForumsDB").collection("Posts");
 
-    res.redirect('/search')
+  // Execute query 
+  const cursor = postCollection.find();
+  const SearchStr = req.body;
 
+  
+  // Print a message if no documents were found
+  if ((postCollection.countDocuments()) === 0) {
+    console.log("No documents found!");
   }
-  catch{
 
-  }
+  const array =  await cursor.toArray();
+
+  res.status(200).json(array);
+  res.redirect("/search");
+
 })
 
 app.get('/login', (req, res) =>{
