@@ -9,6 +9,7 @@ $(document).ready(function () {
         data.forEach((post,x) => {
             
             if(post.author == userToView) {
+                console.log('found a post');
                 const newPost= $("#postTemplate").clone();
                 newPost.attr('id',"");
                 newPost.find(".username").text(post.author);

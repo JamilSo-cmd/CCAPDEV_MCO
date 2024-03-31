@@ -204,6 +204,7 @@ app.post('/login', async (req, res) => {
 
     // If authentication successful, redirect to profile page or dashboard
     curUser = user; // assigns global variable to the user who just logged in
+    req.session.userInfo = user; // sets session userInfo to be user who just logged in (WIP)
     return res.redirect('/index.html'); // Change the redirect URL as needed
 
   } catch (error) {
@@ -217,12 +218,12 @@ app.get('/userData', (req, res) => {
   //console.log('The backend was sent the header: ' + res.header.get('userToView'));
 
   const userData = [{
-    username: curUser.username,
-    profilePic: curUser.profilePic,
-    dlsuID: curUser.dlsuID,
-    dlsuRole: curUser.dlsuRole,
-    gender: curUser.gender,
-    description: curUser.description}];
+    'username': curUser.username,
+    'profilePic': curUser.profilePic,
+    'dlsuID': curUser.dlsuID,
+    'dlsuRole': curUser.dlsuRole,
+    'gender': curUser.gender,
+    'description': curUser.description}];
   
   res.json(userData);
 })

@@ -73,6 +73,7 @@ $(document).ready(function () {
             // if there were no posts by the user in the profile or userToView was not set
             if(userPostCount == 0 ||
                !userToView) {
+                console.log('no posts by user found');
                 document.getElementById('postTemplate').remove(); // removes the template
             }
 
