@@ -16,10 +16,10 @@ $(document).ready(function () {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) { 
-                const post = data[0]; 
-
-                console.log("Post's author is: " + post.author);
+            if (data) { 
+                console.log("Post's author is: " + data.author);
+                //document.getElementsByClassName('icon').src = data.authorPic;
+                document.getElementById('username').href = ('profile.html?userToView=' + data.author);
                 
             } else {
                 console.error('No post data available.');

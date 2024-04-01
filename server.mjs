@@ -93,11 +93,12 @@ app.get('/onePost', async (req,res) =>{
   try{
     const postCollection = client.db("ForumsDB").collection("Posts");
     var postID = req.header('postID');
+    var postObjID = new ObjectId(postID);
 
     console.log('Received post ID: ' + postID);
 
     // Execute query 
-    const postToSend = await postCollection.findOne({ _id: mongoose.types.ObjectID(postID) });
+    const postToSend = await postCollection.findOne({ _id: postObjID });
 
     // sends post back
     if(postToSend) {
