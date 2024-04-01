@@ -68,7 +68,7 @@ app.get('/index', (req, res) =>{
 
 });
 
-//WIP 
+// gets posts
 app.get('/posts', async (req,res) =>{
 
   const postCollection = client.db("ForumsDB").collection("Posts");
@@ -85,8 +85,36 @@ app.get('/posts', async (req,res) =>{
 
   res.status(200).json(array);
   
+});
+
+// gets a single post (WIP)
+app.get('/onePost', async (req,res) =>{
+
+  try{
+    const postCollection = client.db("ForumsDB").collection("Posts");
+    var postID = req.header('postID');
+
+    console.log('Received post ID: ' + postID);
+
+    // Execute query 
+    const postToSend = await postCollection.findOne({ _id: new ObjectId(postID) });
+
+    // sends post back
+    if(postToSend) {
+      console.log("Sent a post");
+      res.json(postToSend);
+    }
+    else {
+      console.error('Error finding post to send back', error);
+      return res.status(404).json({ message: "Post not found." });
+    }
+
+  } catch (error) {
+    console.log("Error locating single post", error);
+  }
 
 });
+
 
 app.get('/search', (req, res) =>{
 
