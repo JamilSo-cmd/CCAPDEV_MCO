@@ -115,31 +115,18 @@ app.get('/onePost', async (req,res) =>{
 
 });
 
-
-app.get('/search', (req, res) =>{
-
-  res.sendFile('./public/search.html', { root: __dirname });
-
-});
-
 //in progress (trying to fix query)
 app.get('/filter', async (req, res) => {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
-  const SearchStr = req.body;
+  const searchStr = req.query.search;
 
-  console.log(SearchStr)
+  console.log("looking for:"+searchStr)
 
-  const query = {
+  const query = {subject:{$regex:searchStr}}
 
-    subject:{}
-
-  };
-  const options = {
-    sort:{subject:1}
-  };
-  // Execute query 
-  const cursor = postCollection.find();
+  // Execute query  
+  const cursor = postCollection.find(query);
 
   
   // Print a message if no documents were found
@@ -149,8 +136,8 @@ app.get('/filter', async (req, res) => {
 
   const array =  await cursor.toArray();
 
+  
   res.status(200).json(array);
-
 })
 
 app.get('/login', (req, res) =>{

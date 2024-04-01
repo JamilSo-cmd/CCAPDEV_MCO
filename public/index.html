@@ -21,12 +21,11 @@
                         <td><div style="width:200px;"><img src="https://icons.iconarchive.com/icons/iconarchive/dogecoin-to-the-moon/512/Doge-icon.png" style="width: 40px;height: 40px;"></div></td>
                         <!--Search button-->
                         <td>
-                            <form action="/filter" method="get">
-                                <a style="text-decoration: none; color: black;" href="search"><div id="button" class="highlight"><p>SEARCH</p></div></td></a>
+                            <button id="submitButton" class="highlight">SEARCH</button>
+                        </td>
                         <!--Search Text Field-->
                         <td style="width:200px;">
-                                <input type="text" size="50" style="font-size: 18px;" name="SearchStr">
-                            </form>
+                            <input type="text" size="50" style="font-size: 18px;" id="SearchStr">
                         </td>
                         <!--Login button-->
                         <td style="padding-left:330px;float: right;"><a class="loginbutton" href="login.html"><div id="button" class="highlight"><p>LOGIN</p></div></a></td>
@@ -57,29 +56,32 @@
 
                 <!--Content here (images are placeholders)-->
                 <td>
+
+                    <!--template for posts-->
+                    <div class="post" id="postTemplate">
+                        <!--Post Header-->
+                        <div class="postHeader"> 
+                            <img class="icon">
+                            <div><a class='username'></a>
+                                <br>
+                                <a style="text-decoration: none;font-size: 0.8rem;" class="viewPostLink">View Post</a>
+                                <br>
+                                <b class='date' style="text-decoration: none;font-size: 0.8rem;"></b>
+                            </div>
+                        </div>
+                        <!--Post Contents -->
+                        <div class="postBody">
+                            <h2 style="margin: 0;" class="subject"></h2>
+                            <hr>
+                            <p class="message"></P>
+                        </div>
+                        <div class="postFooter"><p class="pageNum"></p></div>
+                    </div>
+                </div>
+
                     <div class="postWindow" style="padding-right:300px;">
                         
-                        <!--template for posts-->
-                        <div class="post" id="postTemplate">
-                            <!--Post Header-->
-                            <div class="postHeader"> 
-                                <img class="icon">
-                                <div><a class='username'></a>
-                                    <br>
-                                    <a style="text-decoration: none;font-size: 0.8rem;" class="viewPostLink">View Post</a>
-                                    <br>
-                                    <b class='date' style="text-decoration: none;font-size: 0.8rem;"></b>
-                                </div>
-                            </div>
-                            <!--Post Contents -->
-                            <div class="postBody">
-                                <h2 style="margin: 0;" class="subject"></h2>
-                                <hr>
-                                <p class="message"></P>
-                            </div>
-                            <div class="postFooter"><p class="pageNum"></p></div>
-                        </div>
-                    </div>
+                        
 
                         
                 </td>
