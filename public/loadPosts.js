@@ -10,7 +10,7 @@ $(document).ready(function () {
             newPost.attr('id',"");
             newPost.find(".username").text(post.author);
             newPost.find(".username").attr('href', 'profile.html?userToView=' + post.author);
-            newPost.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + post.author);
+            newPost.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + String(post._id));
             newPost.find(".icon").attr("src", post.authorPic);
             newPost.find(".date").text(post.date);
             newPost.find(".subject").text(post.subject);
