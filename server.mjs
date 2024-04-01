@@ -96,7 +96,7 @@ app.get('/onePost', async (req,res) =>{
     console.log('Received post ID: ' + postID);
 
     // Execute query 
-    const postToSend = await postCollection.findOne({ _id: new ObjectId(postID) });
+    const postToSend = await postCollection.findOne({ _id: mongoose.types.ObjectID(postID) });
 
     // sends post back
     if(postToSend) {
