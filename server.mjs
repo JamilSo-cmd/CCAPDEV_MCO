@@ -4,6 +4,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 import { ObjectId } from 'mongodb';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import mongoose from 'mongoose';
 
 // unique ID generation for sessions
 import {v4 as uuidv4} from 'uuid';
@@ -99,7 +100,13 @@ app.get('/filter', async (req, res) => {
   const postCollection = client.db("ForumsDB").collection("Posts");
   const SearchStr = req.body;
 
-  const query = {};
+  console.log(SearchStr)
+
+  const query = {
+
+    subject:{}
+
+  };
   const options = {
     sort:{subject:1}
   };
