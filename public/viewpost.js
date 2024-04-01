@@ -16,10 +16,9 @@ $(document).ready(function () {
     })
         .then(response => response.json())
         .then(data => {
-            if (data.length > 0) { 
-                const post = data[0]; 
+            if (data) { 
 
-                console.log("Post's author is: " + post.author);
+                console.log("Post's author is: " + data.author);
                 
             } else {
                 console.error('No post data available.');
