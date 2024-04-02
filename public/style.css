@@ -83,6 +83,17 @@
     text-align: center;
 }
 
+.trend{
+
+    height:90px;
+    padding: 10px;
+    text-align: justify;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgb(186, 186, 186);
+
+}
+
 .trendBody{
     padding: 0px;
     position: fixed;

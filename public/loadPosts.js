@@ -52,6 +52,12 @@ $(document).ready(function () {
 
         });
     });
+
+    $.get('/trending', function(data,status){
+
+        
+
+    });
     
 
     $('#submitButton').on('click', function(){
