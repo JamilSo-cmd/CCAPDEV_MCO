@@ -302,6 +302,15 @@ app.post('/login', async (req, res) => {
 // function for getting profile info
 app.get('/userData', async (req, res) => {
 
+  let userID = req.header('userID');
+  
+  console.log(req.session.userInfo);
+  if (userID === null || userID === "null"){
+    
+    userID = req.session.userInfo._id;
+
+  }
+
   try{
     const usersCollection = client.db("ForumsDB").collection("Users");
 
@@ -310,14 +319,10 @@ app.get('/userData', async (req, res) => {
       var userToSend = await usersCollection.findOne({ username: userToView });
       console.log('sending user based on userToView');
     }
-    else */if (req.header('userID')) { // if userID was sent in header, should be a String
-      var userToSend = await usersCollection.findOne({ _id: new ObjectId(req.header('userID')) });
-      console.log('sending user based on userID: ' + req.header('userID'));
-    }
-    else { // if neither userID nor userToView was sent in header
-      console.log('No header input found');
-    }
-
+    else */ // if userID was sent in header, should be a String
+    var userToSend = await usersCollection.findOne({ _id: new ObjectId(userID) });
+    console.log('sending user based on userID: ' + userID);
+    
     // if no user was found
     if(!userToSend) {
       console.log('No valid user found');

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     // very WIP
     //$("#profileRole").text("Javascript loaded");
     /*
@@ -16,9 +17,16 @@ $(document).ready(function () {
     }*/
     //alert('javascript loaded');
     //const userToView = new URLSearchParams(window.location.search).get('userToView');
+
+    // $.get('/sessionUser', function (data,status){
+
+
+
+    // });
+    
     const userID = new URLSearchParams(window.location.search).get('userID');
     var userPostCount = 0;
-            
+    console.log(userID);
     // gets user Data from backend
     fetch('/userData', {
         headers: {
