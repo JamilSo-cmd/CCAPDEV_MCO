@@ -13,6 +13,7 @@ import {v4 as uuidv4} from 'uuid';
 const app = express();
 const port = 3000;
 const __dirname = path.resolve();
+const saltRounds = 10;
 
 // initialize session (WIP)
 app.use(session(
@@ -358,12 +359,14 @@ app.post('/login', async (req, res) => {
     const usersCollection = client.db("ForumsDB").collection("Users");
 
     // Find user with the provided email and password
-    const user = await usersCollection.findOne({ email: email, password: password });
+    const user = await usersCollection.findOne({ email: email});
 
-    // If user not found or password doesn't match, redirect to login page with error message
-    if (!user) {
+    const match = await bcrypt.compare(password,user.password);
+    
+    if (!match) {
       return res.redirect('/login.html?error=invalid_credentials');
     }
+    
 
     // If authentication successful, redirect to profile page or dashboard
     curUser = user; // assigns global variable to the user who just logged in
@@ -538,11 +541,18 @@ app.post('/signup', async (req, res) => {
   try {
       // Extract email, username, and password from the request body
       const { email, username, password } = req.body;
-
+      
       // Make sure all required fields are provided
       if (!email || !username || !password) {
           return res.status(400).json({ message: "Email, username, and password are required." });
       }
+
+      const hashedPassword = await new Promise((resolve, reject) => {
+        bcrypt.hash(password, saltRounds, function(err, hash) {
+          if (err) reject(err)
+          resolve(hash)
+        });
+      })
 
       // 'users' collection in MongoDB database
       const usersCollection = client.db("ForumsDB").collection("Users");
@@ -551,7 +561,7 @@ app.post('/signup', async (req, res) => {
       const result = await usersCollection.insertOne({
           email: email,
           username: username,
-          password: password,
+          password: hashedPassword,
           profilePic: "https://news.tulane.edu/sites/default/files/headshot_icon_0.jpg",
           description: "",
           dlsuID: "",
