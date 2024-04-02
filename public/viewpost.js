@@ -33,47 +33,46 @@ $(document).ready(function () {
 
         loadViewPost();  
 
+        // loads comments of post
         $.get("/comments", function(data, status){
 
-            data.forEach((post,x) => {
+            data.forEach((comment,x) => {
                 
-                console.log(post);
-    
-                const newComment= $("#commentTemplate").clone();
-    
-                fetch('/userData', {
-                    headers: {
-                        'userID': post.authorID
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length > 0) { 
-                            const user = data[0]; 
-                                                  
-                            newPost.find(".username").text(user.username);
-                            newPost.find(".icon").attr("src", user.profilePic);
-                        } else {
-                            console.error('No user data available.');
+                // if the postID of the comment matches the current post being viewed
+                if(comment.postID == postID){
+                    console.log(comment);
+        
+                    const newComment= $("#commentTemplate").clone();
+                    // fetches user data of the comment author
+                    fetch('/userData', {
+                        headers: {
+                            'userID': comment.authorID
                         }
                     })
-                    .catch(error => {
-                        console.error('Error fetching user data:', error);
-                    });
-    
-                newPost.attr('id',"");
-                newPost.find(".username").attr('href', 'profile.html?userID=' + post.authorID);
-                newPost.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + String(post._id));
-                newPost.find(".date").text(post.date);
-                newPost.find(".subject").text(post.subject);
-                newPost.find(".message").text(post.message);
-                newPost.find(".pageNum").text("page "+ (data.length-x));
-    
-                $(".postWindow").prepend(newPost); 
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.length > 0) { 
+                                const user = data[0]; 
+
+                                newComment.find(".commentIcon").attr('src', user.profilePic);  
+                                newComment.find(".username").text(user.username);       
+                                newComment.find(".username").attr('href', 'profile.html?userID=' + String(user._id));                  
+                            } else {
+                                console.error('No user data available.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching user data:', error);
+                        });
+        
+                    newComment.find(".comment").text(comment.comment);
+
+        
+                    $(".postFooter").prepend(newComment); 
+                    }
                 
             });
-    
-            $(".postWindow").append("<div  class='postFooter' style='color: rgb(96, 96, 96);'><p>end of recent history</p></div>");
+            //$(".postWindow").append("<div  class='postFooter' style='color: rgb(96, 96, 96);'><p>end of recent history</p></div>");
     
         });
 

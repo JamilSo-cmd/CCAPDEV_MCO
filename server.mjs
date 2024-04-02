@@ -102,6 +102,7 @@ app.get('/comments', async (req,res) =>{
 
   const array =  await cursor.toArray();
 
+  console.log('sending comments');
   res.status(200).json(array);
   
 });
