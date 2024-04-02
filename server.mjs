@@ -87,6 +87,25 @@ app.get('/posts', async (req,res) =>{
   
 });
 
+app.get('/trending',async (req,res)=> {
+
+  const postCollection = client.db("ForumsDB").collection("Posts");
+
+  // Execute query 
+  const cursor = postCollection.find();
+  
+  // Print a message if no documents were found
+  if ((postCollection.countDocuments()) === 0) {
+    console.log("No documents found!");
+  }
+
+  const array =  await cursor.toArray();
+
+  res.status(200).json(array);
+  
+
+});
+
 // gets a single post (WIP)
 app.get('/onePost', async (req,res) =>{
 
