@@ -1,28 +1,4 @@
 $(document).ready(function () {
-
-    // very WIP
-    //$("#profileRole").text("Javascript loaded");
-    /*
-    const newData = fetch('/userData')
-                        .then(response => response.json())
-                        .then(data => console.log(data))
-
-    async function fetchUserInfo() {
-        try {
-            const response = await fetch('/userData');
-            if(!response.ok) {
-                throw new Error("Response failed due to network");
-            }
-        }
-    }*/
-    //alert('javascript loaded');
-    //const userToView = new URLSearchParams(window.location.search).get('userToView');
-
-    // $.get('/sessionUser', function (data,status){
-
-
-
-    // });
     
     const userID = new URLSearchParams(window.location.search).get('userID');
     var userPostCount = 0;
