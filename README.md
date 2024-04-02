@@ -5,13 +5,14 @@ The DLSUforums is a platform for Lasallians to find each other and interact with
 ## NPM packages
 The following NPM packages were installed for this project:
 
-express
-path
-mongoose
-mongodb
-cookie-parser
-express-session
-uuid
+- express
+- path
+- mongoose
+- mongodb
+- cookie-parser
+- express-session
+- uuid
+- bcrypt
 
 ## Usage
 
