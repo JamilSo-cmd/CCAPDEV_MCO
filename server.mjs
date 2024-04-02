@@ -98,8 +98,10 @@ app.get('/onePost', async (req,res) =>{
     console.log('Received post ID: ' + postID);
 
     // Execute query 
-    const postToSend = await postCollection.findOne({ _id: postObjID });
+    var postToSend = await postCollection.findOne({ _id: postObjID });
 
+    console.log('post found to send has the subject of: ' + postToSend.subject);
+    
     const postData = [{
       '_id': postToSend._id,
       'subject': postToSend.subject,
@@ -108,11 +110,12 @@ app.get('/onePost', async (req,res) =>{
       'date': postToSend.date,
       'dislikes': postToSend.dislikes,
       'likes': postToSend.likes,
-      'authorID': postToSend.authorID,}];
+      'authorID': postToSend.authorID
+    }];
 
     // sends post back
     if(postData) {
-      console.log("Sent a post");
+      console.log("post sent");
       res.json(postData);
     }
     else {
@@ -324,7 +327,8 @@ app.get('/userData', async (req, res) => {
       'dlsuID': userToSend.dlsuID,
       'dlsuRole': userToSend.dlsuRole,
       'gender': userToSend.gender,
-      'description': userToSend.description}];
+      'description': userToSend.description
+    }];
     
     if(userData) {
       console.log('Sent a user');
