@@ -5,6 +5,7 @@ import { ObjectId } from 'mongodb';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 // unique ID generation for sessions
 import {v4 as uuidv4} from 'uuid';
