@@ -254,23 +254,23 @@ app.get('/userData', async (req, res) => {
   try{
     const usersCollection = client.db("ForumsDB").collection("Users");
 
-    if(req.header('userToView')) { // if userToView was sent in header
+    if(req.header('userToView')) { // if userToView was sent in header, should be a String
       var userToView = req.header('userToView');
       var userToSend = await usersCollection.findOne({ username: userToView });
       console.log('sending based on userToView');
     }
-    else if (req.header('userID')) { // if userID was sent in header
+    else if (req.header('userID')) { // if userID was sent in header, should be a String
       var userToSend = await usersCollection.findOne({ _id: new ObjectId(req.header('userID')) });
       console.log('sending based on userID');
     }
     else { // if neither userID nor userToView was sent in header
-      console.error('No header input found', error);
+      console.log('No header input found');
     }
-
 
     console.log('User data being sent back is that of user: ' + userToSend.username);
 
     const userData = [{
+      '_id': userToSend._id,
       'username': userToSend.username,
       'profilePic': userToSend.profilePic,
       'dlsuID': userToSend.dlsuID,
@@ -280,7 +280,7 @@ app.get('/userData', async (req, res) => {
     
     res.json(userData);
   } catch (error) {
-    console.error("Error locating the user" , error);
+    console.error("Error locating the user: " , error);
   }
 })
 

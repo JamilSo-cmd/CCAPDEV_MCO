@@ -18,9 +18,9 @@ $(document).ready(function () {
                     if (data.length > 0) { 
                         const user = data[0]; 
                         
+                        console.log('User who posted is: ' + user.username);                        
                         newPost.find(".username").text(user.username);
                         newPost.find(".icon").attr("src", user.profilePic);
-                       
                     } else {
                         console.error('No user data available.');
                     }
@@ -39,6 +39,7 @@ $(document).ready(function () {
 
             $(".postWindow").prepend(newPost);  
         });
+
         $(".postWindow").append("<div  class='postFooter' style='color: rgb(96, 96, 96);'><p>end of recent history</p></div>");
 
     });
