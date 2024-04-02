@@ -1,20 +1,40 @@
 $(document).ready(function () {
     
     // gets userToView from url, passed from previous profile.html
-    const userToView = new URLSearchParams(window.location.search).get('userToView');
-    console.log('User to view is: '+ userToView);
+    const userID = new URLSearchParams(window.location.search).get('userID');
+    console.log('User ID to view: '+ userID);
 
     $.get("/posts", function(data, status){
 
         data.forEach((post,x) => {
             
-            if(post.author == userToView) {
+            if(post.authorID == userID) {
                 console.log('found a post');
                 const newPost= $("#postTemplate").clone();
+                
+                fetch('/userData', {
+                    headers: {
+                        'userID': post.authorID
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) { 
+                            const user = data[0]; 
+                                                  
+                            newPost.find(".username").text(user.username);
+                            newPost.find(".icon").attr("src", user.profilePic);
+                        } else {
+                            console.error('No user data available.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user data:', error);
+                    });
+    
                 newPost.attr('id',"");
-                newPost.find(".username").text(post.author);
-                newPost.find(".username").attr('href', 'profile.html?userToView=' + post.author);
-                newPost.find(".icon").attr("src", post.authorPic);
+                newPost.find(".username").attr('href', 'profile.html?userID=' + post.authorID);
+                newPost.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + String(post._id));
                 newPost.find(".date").text(post.date);
                 newPost.find(".subject").text(post.subject);
                 newPost.find(".message").text(post.message);

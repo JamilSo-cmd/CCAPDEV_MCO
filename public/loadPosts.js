@@ -17,8 +17,7 @@ $(document).ready(function () {
                 .then(data => {
                     if (data.length > 0) { 
                         const user = data[0]; 
-                        
-                        console.log('User who posted is: ' + user.username);                        
+                                              
                         newPost.find(".username").text(user.username);
                         newPost.find(".icon").attr("src", user.profilePic);
                     } else {
