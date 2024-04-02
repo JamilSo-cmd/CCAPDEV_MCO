@@ -15,10 +15,12 @@ $(document).ready(function () {
                 const postData = await responsePost.json();
             
                 console.log('post id is : ' + postData[0]._id);
+                console.log('post id is : ' + postData[0].date);
                 document.getElementById('viewPostTitle').textContent = postData[0].subject;
                 document.getElementById('viewPostBody').textContent = postData[0].message;
                 document.getElementById('likeCount').textContent = postData[0].likes;
                 document.getElementById('dislikeCount').textContent = postData[0].dislikes;
+                document.getElementById('posterDate').textContent = postData[0].date;
                 
                 //to show/hide edit button
                 const responseUser = await fetch('/userData', {
@@ -30,7 +32,7 @@ $(document).ready(function () {
                 const userData = await responseUser.json();
                 console.log(userData);  
 
-                if (userData[0]._id === postData[0].authorID || userData[0]._id === "660c5d556224905450a1c10b"){
+                if (userData[0]._id === postData[0].authorID || userData[0]._id === "660c5d556224905450a1c10b" /*adminstrator's id*/){
                     $(".post").find(".editButton").show();
                 }
 
