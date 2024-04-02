@@ -1,41 +1,29 @@
 $(document).ready(function () {
     
-    const userID = new URLSearchParams(window.location.search).get('userID');
-    console.log(userID);
+    const postID = new URLSearchParams(window.location.search).get('postID');
     
-    // fetch('/userData',{// gets user Data from backend
-    //     headers: {
-    //         'userID': userID
-    //     }
-    // })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log(data.status);
-    //         if (data.status === 401){
-    //             alert("Please login first");
-    //             window.location.replace("/login");
-    //         }
+    async function loadViewPost() {
+        try {
+            const responsePost = await fetch('/onePost', {
+                headers: {
+                    'postID': postID
+                }
+            })
+            const postData = await responsePost.json();
 
-    //         if (data.length > 0) { 
-    //             const user = data[0]; 
-                
-    //             // Display Current profile picture
-    //             document.getElementById('profilePic').src = user.profilePic;
+            console.log('post id is : ' + postData[0]._id);
 
-    //             // Updates profile info in HTML based on fetch
-    //             document.getElementById('usernameInput').value = user.username;
-    //             document.getElementById('profilePicInput').value = user.profilePic;
-    //             document.getElementById('genderInput').value = user.gender;
-    //             document.getElementById('dlsuIDInput').value = user.dlsuID;
-    //             document.getElementById('roleInput').value = user.dlsuRole;
-    //             document.getElementById('descInput').value = user.description;
-    //             console.log("Retreived relevant user data");
-    //         } else {
-    //             console.error('No user data available.');
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error fetching user data:', error);
-    //     });
+            document.getElementById('postID').value = postData[0]._id;
+            document.getElementById('subject').value = postData[0].subject;
+            document.getElementById('message').value = postData[0].message;
+            document.getElementById('tag').value = postData[0].tag;
+        } 
+        catch (error) {
+            console.error("post loading error: ", error);
+        }
+
+    }
+
+    loadViewPost();
 
 });

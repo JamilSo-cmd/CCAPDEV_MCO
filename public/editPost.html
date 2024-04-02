@@ -63,13 +63,13 @@
                             <div class="postBody">
                                 <form action="/editPost" method="post" id="editPostForm">
                                     <!-- Hidden input field for postId -->
-                                    <input type="hidden" id="postId" name="postId" value="66053dfd05eb4a987ca14d78">
+                                    <input type="text" value="" id="postID" name="postID"  hidden required>
                                     <h3 style="margin: 0;">Subject:</h3><input style="width:400px;" type="text" id="subject" name="subject" required>
                                     <hr>
                                     <h3 style="margin: 0;">Message:</h3><textarea style="height: 200px; width:400px;" id="message" name="message" required></textarea>
                                     <hr>
                                     <h3>Tag:</h3>
-                                    <input list="tagList" name="tag" id="tag" required>
+                                    <input list="tagList" name="tag" id="tag" placeholder="enter or choose a tag" required>
                                     <datalist id="tagList">
                                         <option value="General">General</option>
                                         <option value="School">School</option>

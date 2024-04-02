@@ -9,7 +9,7 @@ The following NPM packages were installed for this project:
 - path
 - mongoose
 - mongodb
-- cookie-parser
+- bson
 - express-session
 - uuid
 - bcrypt

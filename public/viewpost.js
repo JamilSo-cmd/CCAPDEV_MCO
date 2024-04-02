@@ -22,6 +22,7 @@ $(document).ready(function () {
                 document.getElementById('likeCount').textContent = postData[0].likes;
                 document.getElementById('dislikeCount').textContent = postData[0].dislikes;
                 document.getElementById('posterDate').textContent = postData[0].date;
+                document.getElementById('editLink').href = "/editPost.html?postID="+postData[0]._id;
                 
                     //to show/hide edit button
                 try{    
@@ -109,18 +110,5 @@ $(document).ready(function () {
             //$(".postWindow").append("<div  class='postFooter' style='color: rgb(96, 96, 96);'><p>end of recent history</p></div>");
     
         });
-        
-        // $("#postComment").on('click', function(){
-
-        //     var commentStr = $("#commentBox").val();
-
-        //     console.log(commentStr);
-
-        //     $.post("/postComment?comment="+commentStr +"&post="+ postData[0]._id ,function(data,status){
-
-        //         console.log(data);
-
-        //     });
-
-        // });
+    
 });

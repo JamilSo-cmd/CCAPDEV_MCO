@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import { ObjectId } from 'mongodb';
-import cookieParser from 'cookie-parser';
+import { BSON, EJSON} from 'bson';
 import session from 'express-session';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
@@ -608,28 +608,34 @@ app.get('/editPost', (req, res) =>{
 
 app.post('/editPost', async (req, res) => {
   try {
-    // Parse postId from the request body
-    const postId = req.body.postId;
 
     // Extract subject and message from the request body
-    const { subject, message, tag } = req.body;
-
+    const {postID,subject, message, tag } = req.body;
     // Check if postId, subject, and message are provided
-    if (!postId || !subject || !message || !tag) {
+    if (!postID || !subject || !message || !tag) {
       return res.status(400).json({ message: "Post ID, subject, and message are required." });
     }
-
-    // Convert postId to ObjectId
-    const objectId = new ObjectId(postId);
 
     // Get the Posts collection from the database
     const postsCollection = client.db("ForumsDB").collection("Posts");
 
+    const post_ID = BSON.serialize({ _id:postID});
+
+    const filter = {_id:post_ID};
+    const updates = {};
+
+    if (subject) {
+      updates.subject = subject;
+    }
+    if (message) {
+      updates.message = message;
+    }
+    if (tag) {
+      updates.tag = tag;
+    }
+
     // Update the post with the provided post ID
-    const result = await postsCollection.updateOne(
-      { _id: objectId }, // Using ObjectId for post IDs
-      { $set: { subject: subject, message: message, tag: tag } }
-    );
+    const result = await postsCollection.updateOne(filter,{$set:updates});
 
     // Check if the post was updated successfully
     if (result.modifiedCount === 1) {
