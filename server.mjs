@@ -186,7 +186,7 @@ app.get('/oneComment', async (req,res) =>{
       '_id': commToSend._id,
       'comment': commToSend.comment,
       'date': commToSend.date,
-      'userID': commToSend.userID
+      'authorID': commToSend.authorID
     }];
 
     // sends comment back
