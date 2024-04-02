@@ -63,7 +63,8 @@
                             <div class="postBody">
                                 <form action="/editPost" method="post" id="editPostForm">
                                     <!-- Hidden input field for postId -->
-                                    <input type="text" value="" id="postID" name="postID"  hidden required>
+                                    <input type="text" value="" id="curSubject" name="curSubject"  hidden required>
+                                    <input type="text" value="" id="curMsg" name="curMsg"  hidden required>
                                     <h3 style="margin: 0;">Subject:</h3><input style="width:400px;" type="text" id="subject" name="subject" required>
                                     <hr>
                                     <h3 style="margin: 0;">Message:</h3><textarea style="height: 200px; width:400px;" id="message" name="message" required></textarea>

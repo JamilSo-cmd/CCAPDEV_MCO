@@ -13,7 +13,8 @@ $(document).ready(function () {
 
             console.log('post id is : ' + postData[0]._id);
 
-            document.getElementById('postID').value = postData[0]._id;
+            document.getElementById('curSubject').value = postData[0].subject;
+            document.getElementById('curMsg').value = postData[0].message;
             document.getElementById('subject').value = postData[0].subject;
             document.getElementById('message').value = postData[0].message;
             document.getElementById('tag').value = postData[0].tag;

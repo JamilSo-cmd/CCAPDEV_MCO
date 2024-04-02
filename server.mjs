@@ -610,18 +610,16 @@ app.post('/editPost', async (req, res) => {
   try {
 
     // Extract subject and message from the request body
-    const {postID,subject, message, tag } = req.body;
+    const {curSubject,curMsg,subject, message, tag } = req.body;
     // Check if postId, subject, and message are provided
-    if (!postID || !subject || !message || !tag) {
+    if (!subject || !message || !tag) {
       return res.status(400).json({ message: "Post ID, subject, and message are required." });
     }
 
     // Get the Posts collection from the database
     const postsCollection = client.db("ForumsDB").collection("Posts");
 
-    const post_ID = BSON.serialize({ _id:postID});
-
-    const filter = {_id:post_ID};
+    const filter = {subject:curSubject,message:curMsg};
     const updates = {};
 
     if (subject) {
