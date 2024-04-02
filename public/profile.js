@@ -38,8 +38,6 @@ $(document).ready(function () {
                 document.getElementById('profileGender').textContent = user.gender;
                 document.getElementById('descText').text = user.description;
 
-                // set the link to "more posts by user" to the send the username of the current profile
-                document.getElementById('toUserPosts').setAttribute('href', 'userPosts.html?userID=' + String(user._id));
             } else {
                 console.error('No user data available.');
             }
@@ -47,6 +45,9 @@ $(document).ready(function () {
         .catch(error => {
             console.error('Error fetching user data:', error);
         });
+
+        // set the link to "more posts by user" to the send the userID of the current profile
+        document.getElementById('toUserPosts').setAttribute('href', 'userPosts.html?userID=' + userID);
         
         // for the 3 most recent posts of the user to be displayed
         $.get("/posts", function(data, status){
