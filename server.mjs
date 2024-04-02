@@ -97,7 +97,7 @@ app.get('/comments', async (req,res) =>{
   
   // Print a message if no documents were found
   if ((commCollection.countDocuments()) === 0) {
-    console.log("No documents found!");
+    console.log("No comment documents found!");
   }
 
   const array =  await cursor.toArray();

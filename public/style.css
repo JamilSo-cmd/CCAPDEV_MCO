@@ -387,13 +387,12 @@ h1 {
 /* div for like, comment, and/or share buttons*/
 .reactionbar{
     background-color: white;
-    margin-top:500px;
     margin-bottom: 10px;
     font-size: 0.8rem;
     color: rgb(151, 154, 157);
     display : table-row;
     vertical-align : bottom;
-    width: 900px;
+    width: 600px;
     height: 40px;
 }
 
