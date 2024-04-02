@@ -65,7 +65,6 @@ $(document).ready(function () {
                     console.log(comment);
         
                     const newComment= $("#commentTemplate").clone();
-                    document.getElementById('commentTemplate').remove(); // deletes initial template
                     // fetches user data of the comment author
                     fetch('/userData', {
                         headers: {
@@ -76,7 +75,8 @@ $(document).ready(function () {
                         .then(data => {
                             if (data.length > 0) { 
                                 const user = data[0]; 
-
+                                
+                                newComment.attr("id",'');  
                                 newComment.find(".commentIcon").attr('src', user.profilePic);  
                                 newComment.find(".username").text(user.username);                         
                             } else {
