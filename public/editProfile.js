@@ -1,7 +1,21 @@
 $(document).ready(function () {
-    fetch('/userData') // gets user Data from backend
+    
+    const userID = new URLSearchParams(window.location.search).get('userID');
+    console.log(userID);
+    
+    fetch('/userData',{// gets user Data from backend
+        headers: {
+            'userID': userID
+        }
+    })
         .then(response => response.json())
         .then(data => {
+            console.log(data.status);
+            if (data.status === 401){
+                alert("Please login first");
+                window.location.replace("/login");
+            }
+
             if (data.length > 0) { 
                 const user = data[0]; 
                 
