@@ -156,7 +156,8 @@ app.get('/filter', async (req, res) => {
   console.log("----------------------------")
 
   const query = {
-    subject:{$regex:searchStr}
+    subject:{$regex:searchStr},
+    tag:{$regex:categoryStr}
   }
 
   //sort by newest
@@ -164,17 +165,18 @@ app.get('/filter', async (req, res) => {
 
   if (sortStr == "Alphabetical"){
 
-    sort = {subject:1}
+    sort = {subject:-1}
 
   }
   else if (sortStr == "Oldest"){
 
-    sort = {date:1}
+    sort = {_id:-1}
 
   }
 
-  // Execute query  
-  const cursor = postCollection.find(query).sort(sort);
+
+  // Execute query 
+  const cursor = postCollection.find(query).collation({'locale':'en'}).sort(sort);
 
   // Print a message if no documents were found
   if ((postCollection.countDocuments()) === 0) {
