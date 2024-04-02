@@ -488,54 +488,13 @@ h1 {
 
 #commentLikeCount {
     position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
     text-align: center;
     color: green;
-    margin-left: -72px;
+    margin-right: 20px;
 }
 
 #commentDislikeCount {
     position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
-    text-align: center;
-    color: red;
-    margin-left: 5px;
-}
-
-/* Duplicate IDs for sample data (can delete later) ******************************/
-#commentLikeCount2 {
-    position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
-    text-align: center;
-    color: green;
-    margin-left: -72px;
-}
-
-#commentDislikeCount2 {
-    position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
-    text-align: center;
-    color: red;
-    margin-left: 5px;
-}
-
-#commentLikeCount3 {
-    position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
-    text-align: center;
-    color: green;
-    margin-left: -72px;
-}
-
-#commentDislikeCount3 {
-    position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
     text-align: center;
     color: red;
     margin-left: 5px;
