@@ -252,17 +252,23 @@ app.post('/login', async (req, res) => {
 app.get('/userData', async (req, res) => {
 
   try{
-    var userToView = req.header('userToView');
-
-    // if userToView is unset (probably)
-    if(!userToView) {
-      userToView = curUser;
-    }
-
     const usersCollection = client.db("ForumsDB").collection("Users");
 
-    const userToSend = await usersCollection.findOne({ username: userToView });
-    console.log('User data being sent back is that of user: ' + userToView);
+    if(req.header('userToView')) { // if userToView was sent in header
+      var userToView = req.header('userToView');
+      var userToSend = await usersCollection.findOne({ username: userToView });
+      console.log('sending based on userToView');
+    }
+    else if (req.header('userID')) { // if userID was sent in header
+      var userToSend = await usersCollection.findOne({ _id: new ObjectId(req.header('userID')) });
+      console.log('sending based on userID');
+    }
+    else { // if neither userID nor userToView was sent in header
+      console.error('No header input found', error);
+    }
+
+
+    console.log('User data being sent back is that of user: ' + userToSend.username);
 
     const userData = [{
       'username': userToSend.username,

@@ -6,6 +6,18 @@
     width: 100%;
 }
 
+.post{
+    width: 900px;
+    height:auto;
+    min-height: none; 
+    max-height: none; /* have the post height adjust to postbody height */
+}
+
+.postbody{
+    min-height: 300px;
+    max-height: fit-content; /* have post body height adjust to content height */
+}
+
 .icon{
 
     width: 50px;
