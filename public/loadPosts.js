@@ -7,9 +7,29 @@ $(document).ready(function () {
             console.log(post);
 
             const newPost= $("#postTemplate").clone();
+
+            fetch('/userData', {
+                headers: {
+                    'userID': post.authorID
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) { 
+                        const user = data[0]; 
+                        
+                        newPost.find(".username").text(user.username);
+                       
+                    } else {
+                        console.error('No user data available.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+
             newPost.attr('id',"");
-            newPost.find(".username").text(post.author);
-            newPost.find(".username").attr('href', 'profile.html?userToView=' + post.author);
+            newPost.find(".username").attr('href', 'profile.html?userID=' + post.authorID);
             newPost.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + String(post._id));
             newPost.find(".icon").attr("src", post.authorPic);
             newPost.find(".date").text(post.date);

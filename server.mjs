@@ -280,7 +280,7 @@ app.get('/userData', async (req, res) => {
     
     res.json(userData);
   } catch (error) {
-    console.error("Error locating the user with the name:" + userToView + ", Error: " , error);
+    console.error("Error locating the user" , error);
   }
 })
 
