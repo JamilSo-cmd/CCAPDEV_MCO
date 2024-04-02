@@ -57,34 +57,44 @@ $(document).ready(function () {
 
         data.forEach((post,x) => {
 
-            console.log("test");    
-            const newTrend= $("#trendTemplate").clone();
+            console.log(x);
+            
+            if(x < 5){
+                const newTrend= $("#trendTemplate").clone();
 
-            fetch('/userData', {
-                headers: {
-                    'userID': post.authorID
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) { 
-                        const user = data[0]; 
-                                              
-                        newTrend.find(".username").text(user.username);
-                        newTrend.find(".icon").attr("src", user.profilePic);
-                    } else {
-                        console.error('No user data available.');
+                fetch('/userData', {
+                    headers: {
+                        'userID': post.authorID
                     }
                 })
-                .catch(error => {
-                    console.error('Error fetching user data:', error);
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) { 
+                            const user = data[0]; 
+                                                
+                            newTrend.find(".username").text(user.username);
+                            newTrend.find(".icon").attr("src", user.profilePic);
+                        } else {
+                            console.error('No user data available.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user data:', error);
+                    });
 
-            newTrend.attr('id',"");
+                newTrend.attr('id',"");
 
 
-            $(".trendPanel").prepend(newTrend);  
+                newTrend.find(".viewPostLink").text(post.subject);
+                newTrend.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + String(post._id));
+                newTrend.find(".username").attr('href', 'profile.html?userID=' + post.authorID);
+                newTrend.find(".date").text(post.date);
+                newTrend.find(".likes").text(post.likes);
+                newTrend.find(".dislikes").text(post.dislikes);
 
+                $(".trendPanel").append(newTrend);  
+            }
+            
         });
 
     });

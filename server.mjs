@@ -113,7 +113,7 @@ app.get('/trending',async (req,res)=> {
 
   
   // Execute query 
-  const cursor = postCollection.find().sort({likes:1,dislikes:1}).limit(5);
+  const cursor = postCollection.find().sort({likes:-1});
   
   // Print a message if no documents were found
   if ((postCollection.countDocuments()) === 0) {

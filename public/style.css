@@ -85,11 +85,11 @@
 
 .trend{
 
-    height:90px;
+    height:88px;
     padding: 10px;
     text-align: justify;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border: 1px solid rgb(186, 186, 186);
 
 }
