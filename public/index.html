@@ -18,17 +18,32 @@
 
                     <table id="headerOptions">
                         <!--icon (placeholder image present)-->
-                        <td><div style="width:200px;"><img src="https://icons.iconarchive.com/icons/iconarchive/dogecoin-to-the-moon/512/Doge-icon.png" style="width: 40px;height: 40px;"></div></td>
+                        <td><div style="width:200px;margin-right: 60px;"><img src="https://icons.iconarchive.com/icons/iconarchive/dogecoin-to-the-moon/512/Doge-icon.png" style="width: 40px;height: 40px;"></div></td>
+                        
+                        <!--Search Text Field-->
+                        <td style="width:200px;">
+                            <input type="text" size="20" style="font-size: 18px;" id="searchStr" placeholder="input subject here">
+                        </td>
+                        <!--Oldest or Alphabetical Order-->
+                        <td>
+                            <select style="font-size: 18px;" id="sortFilter">
+                                <option>from Recent</option>
+                                <option value="Oldest">from Oldest</option>
+                                <option value="Alphabetical">Alphabetical Order</option>
+                            </select>
+                        </td>
+                        <!--Categories filter-->
+                        <td>
+                            <select style="font-size: 18px;" id="categoryFilter" >
+                                <option value="null ">No Category</option>
+                            </select>
+                        </td>
                         <!--Search button-->
                         <td>
                             <button id="submitButton" class="highlight">SEARCH</button>
                         </td>
-                        <!--Search Text Field-->
-                        <td style="width:200px;">
-                            <input type="text" size="50" style="font-size: 18px;" id="SearchStr">
-                        </td>
                         <!--Login button-->
-                        <td style="padding-left:330px;float: right;"><a class="loginbutton" href="login.html"><div id="button" class="highlight"><p>LOGIN</p></div></a></td>
+                        <td style="padding-left:300px;float: right;"><a class="loginbutton" href="login.html"><div id="button" class="highlight"><p>LOGIN</p></div></a></td>
                     </table>
 
                 </div></td>
@@ -77,13 +92,15 @@
                         </div>
                         <div class="postFooter"><p class="pageNum"></p></div>
                     </div>
-                </div>
+
 
                     <div class="postWindow" style="padding-right:300px;">
                         
                         
 
-                        
+                     
+                    </div>
+    
                 </td>
 
             </tr>
@@ -101,7 +118,9 @@
                 ...
 
             </div>
+            
         </div>
+
     </body>
 
 </html>
