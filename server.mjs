@@ -87,6 +87,25 @@ app.get('/posts', async (req,res) =>{
   
 });
 
+// gets comments
+app.get('/comments', async (req,res) =>{
+
+  const commCollection = client.db("ForumsDB").collection("Comments");
+
+  // Execute query 
+  const cursor = commCollection.find();
+  
+  // Print a message if no documents were found
+  if ((commCollection.countDocuments()) === 0) {
+    console.log("No documents found!");
+  }
+
+  const array =  await cursor.toArray();
+
+  res.status(200).json(array);
+  
+});
+
 app.get('/trending',async (req,res)=> {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
@@ -144,6 +163,44 @@ app.get('/onePost', async (req,res) =>{
 
   } catch (error) {
     console.log("Error locating single post", error);
+  }
+
+});
+
+// gets a single comment
+app.get('/oneComment', async (req,res) =>{
+
+  try{
+    const commCollection = client.db("ForumsDB").collection("Comments");
+    var commID = req.header('commID');
+    var commObjID = new ObjectId(commID);
+
+    console.log('Received comment ID: ' + commID);
+
+    // Execute query 
+    var commToSend = await commCollection.findOne({ _id: commObjID });
+
+    console.log('comment found to send has the subject of: ' + commToSend.comment);
+    
+    const commData = [{
+      '_id': commToSend._id,
+      'comment': commToSend.comment,
+      'date': commToSend.date,
+      'userID': commToSend.userID
+    }];
+
+    // sends comment back
+    if(commData) {
+      console.log("comment sent");
+      res.json(commData);
+    }
+    else {
+      console.error('Error finding comment to send back', error);
+      return res.status(404).json({ message: "Comment not found." });
+    }
+
+  } catch (error) {
+    console.log("Error locating single comment", error);
   }
 
 });
