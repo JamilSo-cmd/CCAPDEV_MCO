@@ -35,7 +35,7 @@ const uri = "mongodb+srv://ZTORlIlsVr6pGCNc:ZTORlIlsVr6pGCNc@cluster0.bvg7nag.mo
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
-    strict: true,
+    strict: false,
     deprecationErrors: true,
   }
 });
@@ -134,16 +134,14 @@ app.get('/categories',async (req,res)=>{
   const postCollection = client.db("ForumsDB").collection("Posts");
 
   // Execute query 
-  const cursor = postCollection.find();
-  
+  const cursor = await postCollection.distinct("tag");
+
   // Print a message if no documents were found
   if ((postCollection.countDocuments()) === 0) {
     console.log("No documents found!");
   }
-
-  const array =  await cursor.toArray();
-
-  res.status(200).json(array);
+  
+  res.status(200).json(cursor);
   
 });
 

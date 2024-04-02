@@ -46,14 +46,12 @@ $(document).ready(function () {
     });
 
     $.get('/categories',function(data,status){
-
-        data.forEach((post,x) => {
+        
+        data.forEach(post => {
             
-            $("#categoryFilter").append("<option value="+post.tag+">"+post.tag+"</option>");
+            $("#categoryFilter").append("<option value="+post+">"+post+"</option>");
 
         });
-
-
     });
     
 
