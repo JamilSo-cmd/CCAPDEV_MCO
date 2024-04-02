@@ -43,6 +43,7 @@ $(document).ready(function () {
                     console.log(comment);
         
                     const newComment= $("#commentTemplate").clone();
+                    document.getElementById('commentTemplate').remove(); // deletes initial template
                     // fetches user data of the comment author
                     fetch('/userData', {
                         headers: {
@@ -55,8 +56,7 @@ $(document).ready(function () {
                                 const user = data[0]; 
 
                                 newComment.find(".commentIcon").attr('src', user.profilePic);  
-                                newComment.find(".username").text(user.username);       
-                                newComment.find(".username").attr('href', 'profile.html?userID=' + String(user._id));                  
+                                newComment.find(".username").text(user.username);                         
                             } else {
                                 console.error('No user data available.');
                             }
@@ -66,6 +66,8 @@ $(document).ready(function () {
                         });
         
                     newComment.find(".comment").text(comment.comment);
+                    newComment.find(".commentDate").text(comment.date);
+                    newComment.find(".username").attr('href', 'profile.html?userID=' + String(comment.authorID));
 
         
                     $(".postFooter").prepend(newComment); 
