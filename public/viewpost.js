@@ -22,29 +22,38 @@ $(document).ready(function () {
                 document.getElementById('dislikeCount').textContent = postData[0].dislikes;
                 document.getElementById('posterDate').textContent = postData[0].date;
                 
-                //to show/hide edit button
-                const responseUser = await fetch('/userData', {
-                    headers: {
-                        'userID': userID
+                    //to show/hide edit button
+                try{    
+                    const responseUser = await fetch('/userData', {
+                        headers: {
+                            'userID': userID
+                        }
+                    })
+
+                    const userData = await responseUser.json();
+                    console.log(userData);  
+
+                    if (userData[0]._id === postData[0].authorID || userData[0]._id === "660c5d556224905450a1c10b" /*adminstrator's id*/){
+                        $(".post").find(".editButton").show();
                     }
-                })
+                    if (userData){
 
-                const userData = await responseUser.json();
-                console.log(userData);  
+                        $(".postWindow").find("#loginmessage").text("Type comment here");
 
-                if (userData[0]._id === postData[0].authorID || userData[0]._id === "660c5d556224905450a1c10b" /*adminstrator's id*/){
-                    $(".post").find(".editButton").show();
+                    }
                 }
-
+                catch{
+                }
+                //fetch authorData
                 const responsePoster = await fetch('userData', {
                     headers: {
                         'userID': postData[0].authorID
                     }
                 })
                 const posterData = await responsePoster.json();
+                document.getElementById('posterPic').src = posterData[0].profilePic;
                 document.getElementById('posterUsername').textContent = posterData[0].username;
                 document.getElementById('posterUsername').href = ('profile.html?userID=' + posterData[0]._id);
-                document.getElementById('posterPic').src = posterData[0].profilePic;
 
             } catch (error) {
                 console.error("post loading error: ", error);
@@ -99,5 +108,18 @@ $(document).ready(function () {
             //$(".postWindow").append("<div  class='postFooter' style='color: rgb(96, 96, 96);'><p>end of recent history</p></div>");
     
         });
+        
+        $("#postComment").on('click', function(){
 
+            var commentStr = $("#commentBox").val();
+
+            console.log(commentStr);
+
+            $.post("/postComment?comment="+commentStr +"&post="+ postData[0]._id ,function(data,status){
+
+                console.log(data);
+
+            });
+
+        });
 });

@@ -109,6 +109,28 @@ app.get('/comments', async (req,res) =>{
   
 });
 
+app.post('/postComment', async (req,res) =>{
+
+  const commentCollection = client.db("ForumsDB").collection("Comments");
+  const commentStr = req.body.comment;
+  const postStr = req.body.post;
+  let userID = req.session.userInfo;
+  const date = new Date(Date.now()).toUTCString();
+  
+  const result = await commentCollection.insertOne({
+
+    comment:commentStr,
+    date:date,
+    authorID:userID._id.toString(),
+    postID:postStr,
+    dislikes: 0,
+    likes: 0,
+  });
+  console.log(userID._id);
+  res.redirect("/index");
+
+});
+
 app.get('/trending',async (req,res)=> {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
@@ -145,7 +167,7 @@ app.get('/onePost', async (req,res) =>{
     console.log('post found to send has the subject of: ' + postToSend.subject);
     
     const postData = [{
-      '_id': postToSend._id,
+      '_id': postToSend._id, 
       'subject': postToSend.subject,
       'message': postToSend.message,
       'tag': postToSend.tag,
@@ -480,7 +502,7 @@ app.post('/create', async (req,res) => {
     });
 
     console.log("test");
-  // If insertion is successful, respond with a success message
+
     res.redirect("/index");
 
   }
