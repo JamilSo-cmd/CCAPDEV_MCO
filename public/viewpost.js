@@ -2,7 +2,7 @@ $(document).ready(function () {
     
     const postID = new URLSearchParams(window.location.search).get('postID');
     console.log('postID to view is: ' + postID);
-    alert('javascript loaded');
+    //alert('javascript loaded');
 
     /*fetch('/onePost', {
         headers: {
@@ -52,17 +52,20 @@ $(document).ready(function () {
                     }
                 })
                 const postData = await responsePost.json();
+            
+                console.log('post id is : ' + postData[0]._id);
+                document.getElementById('viewPostTitle').textContent = postData[0].subject;
+                document.getElementById('viewPostBody').textContent = postData[0].message;
 
-                console.log('post subject is : ' + postData.subject);
-                document.getElementById('viewPostTitle').textContent = postData.subject;
-                document.getElementById('viewPostBody').textContent = postData.message;
-
-                /*const responsePoster = await fetch('userData', {
+                const responsePoster = await fetch('userData', {
                     headers: {
-                        'userID': postData._id
+                        'userID': postData[0].authorID
                     }
                 })
-                const posterData = await responsePoster.json();*/
+                const posterData = await responsePoster.json();
+                document.getElementById('posterUsername').textContent = posterData[0].username;
+                document.getElementById('posterUsername').href = ('profile.html?userID=' + posterData[0]._id);
+                document.getElementById('posterPic').src = posterData[0].profilePic;
 
             } catch (error) {
                 console.error("post loading error: ", error);

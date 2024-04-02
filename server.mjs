@@ -310,10 +310,16 @@ app.get('/userData', async (req, res) => {
     }
     else */if (req.header('userID')) { // if userID was sent in header, should be a String
       var userToSend = await usersCollection.findOne({ _id: new ObjectId(req.header('userID')) });
-      console.log('sending user based on userID');
+      console.log('sending user based on userID: ' + req.header('userID'));
     }
     else { // if neither userID nor userToView was sent in header
       console.log('No header input found');
+    }
+
+    // if no user was found
+    if(!userToSend) {
+      console.log('No valid user found');
+      return res.status(404).json({ message: "User not found or could not be deleted." });
     }
 
     console.log('User data being sent back is that of user: ' + userToSend.username);
