@@ -47,7 +47,6 @@ $(document).ready(function () {
     $.get('/categories',function(data,status){
         
         data.forEach(post => {
-            
             $("#categoryFilter").append("<option value="+post+">"+post+"</option>");
 
         });
@@ -55,7 +54,38 @@ $(document).ready(function () {
 
     $.get('/trending', function(data,status){
 
-        
+
+        data.forEach((post,x) => {
+
+            console.log("test");    
+            const newTrend= $("#trendTemplate").clone();
+
+            fetch('/userData', {
+                headers: {
+                    'userID': post.authorID
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) { 
+                        const user = data[0]; 
+                                              
+                        newTrend.find(".username").text(user.username);
+                        newTrend.find(".icon").attr("src", user.profilePic);
+                    } else {
+                        console.error('No user data available.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+
+            newTrend.attr('id',"");
+
+
+            $(".trendPanel").prepend(newTrend);  
+
+        });
 
     });
     

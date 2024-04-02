@@ -110,8 +110,9 @@ app.get('/trending',async (req,res)=> {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
 
+  
   // Execute query 
-  const cursor = postCollection.find();
+  const cursor = postCollection.find().sort({likes:1,dislikes:1}).limit(5);
   
   // Print a message if no documents were found
   if ((postCollection.countDocuments()) === 0) {
