@@ -15,6 +15,8 @@ $(document).ready(function () {
 
             document.getElementById('curSubject').value = postData[0].subject;
             document.getElementById('curMsg').value = postData[0].message;
+            document.getElementById('keySubject').value = postData[0].subject;
+            document.getElementById('keyMsg').value = postData[0].message;
             document.getElementById('subject').value = postData[0].subject;
             document.getElementById('message').value = postData[0].message;
             document.getElementById('tag').value = postData[0].tag;

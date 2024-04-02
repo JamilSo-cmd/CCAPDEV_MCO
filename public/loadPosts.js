@@ -108,7 +108,6 @@ $(document).ready(function () {
         console.log(queryStr);
 
         $.get('/filter?search='+ queryStr + '&sort=' + sortStr + '&category=' + tagStr , function(data, status){
-            //TODO:clear and append posts
             console.log(data);
 
             $('.postWindow').empty();

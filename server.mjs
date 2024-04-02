@@ -509,30 +509,16 @@ app.post('/create', async (req,res) => {
 
 });
 
-app.get('/delete', (req, res) =>{
-
-  res.sendFile('./public/delete.html', { root: __dirname });
-
-});
-
 app.post('/delete', async (req, res) => {
   try {
-    // Parse postId from the request body
-    const postId = req.body.postId;
 
-    // Check if postId is provided
-    if (!postId) {
-      return res.status(400).json({ message: "Post ID is required." });
-    }
-
-    // Convert postId to ObjectId
-    const objectId = new ObjectId(postId);
+    const {keyMsg,keySubject} = req.body;
 
     // Get the Posts collection from the database
     const postsCollection = client.db("ForumsDB").collection("Posts");
 
     // Delete the post with the provided post ID
-    const result = await postsCollection.deleteOne({ _id: objectId });
+    const result = await postsCollection.deleteOne({subject:keySubject,message:keyMsg});
 
     // Check if the post was deleted successfully
     if (result.deletedCount === 1) {

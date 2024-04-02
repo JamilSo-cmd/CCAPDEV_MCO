@@ -82,10 +82,11 @@
                                 </form>
                                 
                                 <!-- Delete Button -->
-                                <form action="/delete" method="post" id="deleteForm">
+                                <form action="/delete" method="post" id="deleteForm" onsubmit="return confirm('Are you sure you want to delete?');">
                                     <!-- Hidden input field for postId -->
-                                    <input type="hidden" id="postIdToDelete" name="postId" value="66053dfd05eb4a987ca14d78">
-                                    <button type="submit" id="deleteButton" class="deleteButton">Delete</button>
+                                    <input type="text" value="" id="keySubject" name="keySubject" hidden required>
+                                    <input type="text" value="" id="keyMsg" name="keyMsg" hidden required>
+                                    <input type="submit" id="deleteButton" class="deleteButton" value="Delete"> 
                                 </form>
                             </div>
                             <div class="postFooter"><p></p></div>
