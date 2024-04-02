@@ -87,6 +87,25 @@ app.get('/posts', async (req,res) =>{
   
 });
 
+// gets comments
+app.get('/comments', async (req,res) =>{
+
+  const commCollection = client.db("ForumsDB").collection("Comments");
+
+  // Execute query 
+  const cursor = commCollection.find();
+  
+  // Print a message if no documents were found
+  if ((commCollection.countDocuments()) === 0) {
+    console.log("No documents found!");
+  }
+
+  const array =  await cursor.toArray();
+
+  res.status(200).json(array);
+  
+});
+
 app.get('/trending',async (req,res)=> {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
