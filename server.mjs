@@ -303,8 +303,6 @@ app.get('/userData', async (req, res) => {
 
   let userID = req.header('userID');
   
-  console.log(req.session.userInfo);
-  
   if (userID === null || userID === "null"){
     try{
       userID = req.session.userInfo._id;
@@ -312,7 +310,6 @@ app.get('/userData', async (req, res) => {
     catch(err){
       console.log(err);
     }
-    console.log(userID);
     if (userID === null || userID === "null"){
       console.log(true);
       return res.status(401).json({message:"No logged in user found",status:401});
@@ -330,15 +327,12 @@ app.get('/userData', async (req, res) => {
       }
       else */ // if userID was sent in header, should be a String
       var userToSend = await usersCollection.findOne({ _id: new ObjectId(userID) });
-      console.log('sending user based on userID: ' + userID);
       
       // if no user was found
       if(!userToSend) {
         console.log('No valid user found');
         return res.status(404).json({ message: "User not found or could not be deleted." });
       }
-  
-      console.log('User data being sent back is that of user: ' + userToSend.username);
   
       const userData = [{
         '_id': userToSend._id,
@@ -351,7 +345,6 @@ app.get('/userData', async (req, res) => {
       }];
       
       if(userData) {
-        console.log('Sent a user');
         res.json(userData);
       }
     } catch (error) {
@@ -369,11 +362,10 @@ app.get('/profile', (req, res) =>{
 
 });
 
-app.get('/create', (req, res) =>{
-
-  res.sendFile('./public/create.html', { root: __dirname });
-
-});
+app.get('/create',(req, res) =>{
+    res.sendFile('./public/create.html', { root: __dirname });
+  }
+);
 
 // registers posts into the db
 app.post('/create', async (req,res) => {
