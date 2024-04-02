@@ -116,20 +116,58 @@ app.get('/onePost', async (req,res) =>{
 
 });
 
+app.get('/categories',async (req,res)=>{
+
+  const postCollection = client.db("ForumsDB").collection("Posts");
+
+  // Execute query 
+  const cursor = postCollection.find();
+  
+  // Print a message if no documents were found
+  if ((postCollection.countDocuments()) === 0) {
+    console.log("No documents found!");
+  }
+
+  const array =  await cursor.toArray();
+
+  res.status(200).json(array);
+  
+});
+
 //in progress (trying to fix query)
 app.get('/filter', async (req, res) => {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
   const searchStr = req.query.search;
+  const sortStr = req.query.sort;
+  const categoryStr = req.query.category;
 
-  console.log("looking for:"+searchStr)
+  console.log("looking for: "+searchStr)
+  console.log("sorted  by:  "+sortStr)
+  console.log("with category: "+categoryStr)
+  console.log("----------------------------")
 
-  const query = {subject:{$regex:searchStr}}
+  const query = {
+    subject:{$regex:searchStr}
+  }
+
+  //sort by newest
+  let sort = {};
+
+  if (sortStr == "Alphabetical"){
+
+    sort = {subject:1}
+
+  }
+  else if (sortStr == "Oldest"){
+
+    sort = {date:1}
+
+  }
 
   // Execute query  
-  const cursor = postCollection.find(query);
+  const cursor = postCollection.find(query).sort(sort);
 
-  
   // Print a message if no documents were found
   if ((postCollection.countDocuments()) === 0) {
     console.log("No documents found!");
