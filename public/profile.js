@@ -14,21 +14,15 @@ $(document).ready(function () {
             }
         }
     }*/
-
-    const userToView = new URLSearchParams(window.location.search).get('userToView');
-    var viewCurrUser = 0;
+    //alert('javascript loaded');
+    //const userToView = new URLSearchParams(window.location.search).get('userToView');
+    const userID = new URLSearchParams(window.location.search).get('userID');
     var userPostCount = 0;
-    // WIP
-    if(!userToView) {
-        viewCurrUser = 1;
-        userToView = 'test';
-        console.log('No user to view found');
-    }
             
     // gets user Data from backend
     fetch('/userData', {
         headers: {
-            'userToView': userToView
+            'userID': userID
         }
     })
         .then(response => response.json())
@@ -44,8 +38,6 @@ $(document).ready(function () {
                 document.getElementById('profileGender').textContent = user.gender;
                 document.getElementById('descText').text = user.description;
 
-                // set the link to "more posts by user" to the send the username of the current profile
-                document.getElementById('toUserPosts').setAttribute('href', 'userPosts.html?userToView=' + user.username);
             } else {
                 console.error('No user data available.');
             }
@@ -53,19 +45,42 @@ $(document).ready(function () {
         .catch(error => {
             console.error('Error fetching user data:', error);
         });
+
+        // set the link to "more posts by user" to the send the userID of the current profile
+        document.getElementById('toUserPosts').setAttribute('href', 'userPosts.html?userID=' + userID);
         
         // for the 3 most recent posts of the user to be displayed
         $.get("/posts", function(data, status){
 
             data.forEach((post,x) => {
                 
-                if(post.author == userToView &&
+                if(post.authorID == userID &&
                     userPostCount < 3) {
                     const newPost= $("#postTemplate").clone();
                     newPost.attr('id',"");
-                    newPost.find(".username").text(post.author);
-                    newPost.find(".username").attr('href', 'profile.html?userToView=' + post.author);
-                    newPost.find(".icon").attr("src", post.authorPic);
+
+                    fetch('/userData', {
+                        headers: {
+                            'userID': post.authorID
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.length > 0) { 
+                                const user = data[0]; 
+                                
+                                newPost.find(".username").text(user.username);
+                                newPost.find(".icon").attr("src", user.profilePic);
+                               
+                            } else {
+                                console.error('No user data available.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching user data:', error);
+                        });
+
+                    newPost.find(".username").attr('href', 'profile.html?userID=' + post.authorID);
                     newPost.find(".date").text(post.date);
                     newPost.find(".subject").text(post.subject);
                     newPost.find(".message").text(post.message);
@@ -79,7 +94,7 @@ $(document).ready(function () {
 
             // if there were no posts by the user in the profile or userToView was not set
             if(userPostCount == 0 ||
-               !userToView) {
+               !userID) {
                 console.log('no posts by user found');
                 document.getElementById('postTemplate').remove(); // removes the template
             }
