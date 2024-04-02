@@ -23,7 +23,7 @@ app.use(session(
     secret: 'secretpass',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, expires:60000 }
+    cookie: { secure: false, maxAge: 7 * 24 * 3600 * 1000 }
   }));
 
 var curUser; // should be a user
@@ -193,7 +193,6 @@ app.get('/filter', async (req, res) => {
 })
 
 app.get('/login', (req, res) =>{
-
   res.sendFile('./public/login.html', { root: __dirname });
 
 });
@@ -305,49 +304,63 @@ app.get('/userData', async (req, res) => {
   let userID = req.header('userID');
   
   console.log(req.session.userInfo);
+  
   if (userID === null || userID === "null"){
-    
-    userID = req.session.userInfo._id;
-
+    try{
+      userID = req.session.userInfo._id;
+    }
+    catch(err){
+      console.log(err);
+    }
+    console.log(userID);
+    if (userID === null || userID === "null"){
+      console.log(true);
+      return res.status(401).json({message:"No logged in user found",status:401});
+    }
   }
-
-  try{
-    const usersCollection = client.db("ForumsDB").collection("Users");
-
-    /*if(req.header('userToView')) { // if userToView was sent in header, should be a String
-      var userToView = req.header('userToView');
-      var userToSend = await usersCollection.findOne({ username: userToView });
-      console.log('sending user based on userToView');
-    }
-    else */ // if userID was sent in header, should be a String
-    var userToSend = await usersCollection.findOne({ _id: new ObjectId(userID) });
-    console.log('sending user based on userID: ' + userID);
+  if(userID){
     
-    // if no user was found
-    if(!userToSend) {
-      console.log('No valid user found');
-      return res.status(404).json({ message: "User not found or could not be deleted." });
+    try{
+      const usersCollection = client.db("ForumsDB").collection("Users");
+  
+      /*if(req.header('userToView')) { // if userToView was sent in header, should be a String
+        var userToView = req.header('userToView');
+        var userToSend = await usersCollection.findOne({ username: userToView });
+        console.log('sending user based on userToView');
+      }
+      else */ // if userID was sent in header, should be a String
+      var userToSend = await usersCollection.findOne({ _id: new ObjectId(userID) });
+      console.log('sending user based on userID: ' + userID);
+      
+      // if no user was found
+      if(!userToSend) {
+        console.log('No valid user found');
+        return res.status(404).json({ message: "User not found or could not be deleted." });
+      }
+  
+      console.log('User data being sent back is that of user: ' + userToSend.username);
+  
+      const userData = [{
+        '_id': userToSend._id,
+        'username': userToSend.username,
+        'profilePic': userToSend.profilePic,
+        'dlsuID': userToSend.dlsuID,
+        'dlsuRole': userToSend.dlsuRole,
+        'gender': userToSend.gender,
+        'description': userToSend.description
+      }];
+      
+      if(userData) {
+        console.log('Sent a user');
+        res.json(userData);
+      }
+    } catch (error) {
+      console.error("Error locating the user: " , error);
     }
 
-    console.log('User data being sent back is that of user: ' + userToSend.username);
+  }  
 
-    const userData = [{
-      '_id': userToSend._id,
-      'username': userToSend.username,
-      'profilePic': userToSend.profilePic,
-      'dlsuID': userToSend.dlsuID,
-      'dlsuRole': userToSend.dlsuRole,
-      'gender': userToSend.gender,
-      'description': userToSend.description
-    }];
-    
-    if(userData) {
-      console.log('Sent a user');
-      res.json(userData);
-    }
-  } catch (error) {
-    console.error("Error locating the user: " , error);
-  }
+  
 })
 
 app.get('/profile', (req, res) =>{
@@ -364,7 +377,11 @@ app.get('/create', (req, res) =>{
 
 // registers posts into the db
 app.post('/create', async (req,res) => {
+  
   try{
+
+    let userID = req.session.userInfo;
+    console.log(req.session.userInfo);
 
     const {subject,message,tag} = req.body;
 
@@ -377,7 +394,7 @@ app.post('/create', async (req,res) => {
     const postsCollection = client.db("ForumsDB").collection("Posts");
 
     const result = await postsCollection.insertOne({
-      author:curUser.username,
+      author:userID.username,
       authorPic:curUser.profilePic,
       subject:subject,
       message:message,
@@ -385,6 +402,7 @@ app.post('/create', async (req,res) => {
       date:date,
       dislikes: 0,
       likes: 0,
+      authorID:curUser._id.toString(),
     });
 
     console.log("test");

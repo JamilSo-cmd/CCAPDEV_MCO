@@ -33,8 +33,14 @@ $(document).ready(function () {
             'userID': userID
         }
     })
-        .then(response => response.json())
+        .then(response =>response.json())
         .then(data => {
+            console.log(data.status);
+            if (data.status === 401){
+                alert("Please login first");
+                window.location.replace("/login");
+            }
+
             if (data.length > 0) { 
                 const user = data[0]; 
                 
