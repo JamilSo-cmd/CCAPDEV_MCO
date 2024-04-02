@@ -100,10 +100,20 @@ app.get('/onePost', async (req,res) =>{
     // Execute query 
     const postToSend = await postCollection.findOne({ _id: postObjID });
 
+    const postData = [{
+      '_id': postToSend._id,
+      'subject': postToSend.subject,
+      'message': postToSend.message,
+      'tag': postToSend.tag,
+      'date': postToSend.date,
+      'dislikes': postToSend.dislikes,
+      'likes': postToSend.likes,
+      'authorID': postToSend.authorID,}];
+
     // sends post back
-    if(postToSend) {
+    if(postData) {
       console.log("Sent a post");
-      res.json(postToSend);
+      res.json(postData);
     }
     else {
       console.error('Error finding post to send back', error);
@@ -292,14 +302,14 @@ app.get('/userData', async (req, res) => {
   try{
     const usersCollection = client.db("ForumsDB").collection("Users");
 
-    if(req.header('userToView')) { // if userToView was sent in header, should be a String
+    /*if(req.header('userToView')) { // if userToView was sent in header, should be a String
       var userToView = req.header('userToView');
       var userToSend = await usersCollection.findOne({ username: userToView });
-      console.log('sending based on userToView');
+      console.log('sending user based on userToView');
     }
-    else if (req.header('userID')) { // if userID was sent in header, should be a String
+    else */if (req.header('userID')) { // if userID was sent in header, should be a String
       var userToSend = await usersCollection.findOne({ _id: new ObjectId(req.header('userID')) });
-      console.log('sending based on userID');
+      console.log('sending user based on userID');
     }
     else { // if neither userID nor userToView was sent in header
       console.log('No header input found');
@@ -316,7 +326,10 @@ app.get('/userData', async (req, res) => {
       'gender': userToSend.gender,
       'description': userToSend.description}];
     
-    res.json(userData);
+    if(userData) {
+      console.log('Sent a user');
+      res.json(userData);
+    }
   } catch (error) {
     console.error("Error locating the user: " , error);
   }

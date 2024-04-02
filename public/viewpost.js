@@ -53,12 +53,16 @@ $(document).ready(function () {
                 })
                 const postData = await responsePost.json();
 
-                const responsePoster = await fetch('userData', {
+                console.log('post subject is : ' + postData.subject);
+                document.getElementById('viewPostTitle').textContent = postData.subject;
+                document.getElementById('viewPostBody').textContent = postData.message;
+
+                /*const responsePoster = await fetch('userData', {
                     headers: {
                         'userID': postData._id
                     }
                 })
-                const posterData = await responsePoster.json();
+                const posterData = await responsePoster.json();*/
 
             } catch (error) {
                 console.error("post loading error: ", error);
