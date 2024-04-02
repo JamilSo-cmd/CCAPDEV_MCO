@@ -1,7 +1,9 @@
 $(document).ready(function () {
     
     const postID = new URLSearchParams(window.location.search).get('postID');
+    const userID = new URLSearchParams(window.location.search).get('userID');
     console.log('postID to view is: ' + postID);
+    console.log(userID);
 
         async function loadViewPost() {
             try {
@@ -15,6 +17,22 @@ $(document).ready(function () {
                 console.log('post id is : ' + postData[0]._id);
                 document.getElementById('viewPostTitle').textContent = postData[0].subject;
                 document.getElementById('viewPostBody').textContent = postData[0].message;
+                document.getElementById('likeCount').textContent = postData[0].likes;
+                document.getElementById('dislikeCount').textContent = postData[0].dislikes;
+                
+                //to show/hide edit button
+                const responseUser = await fetch('/userData', {
+                    headers: {
+                        'userID': userID
+                    }
+                })
+
+                const userData = await responseUser.json();
+                console.log(userData);  
+
+                if (userData[0]._id === postData[0].authorID){
+                    $(".post").find(".editButton").show();
+                }
 
                 const responsePoster = await fetch('userData', {
                     headers: {
@@ -32,6 +50,8 @@ $(document).ready(function () {
         }
 
         loadViewPost();  
+
+        
 
         // loads comments of post
         $.get("/comments", function(data, status){

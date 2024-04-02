@@ -402,7 +402,8 @@ h1 {
     margin-bottom: 10px;
     font-size: 0.8rem;
     color: rgb(151, 154, 157);
-    display : table-row;
+    display : flex;
+    flex-direction: row;
     vertical-align : bottom;
     width: 600px;
     height: 40px;
@@ -435,6 +436,7 @@ h1 {
     margin-left: 15px;
     float: left;
     color: white;
+    margin-right: 20px;
 }
 
 .likeButton:hover{
@@ -455,9 +457,9 @@ h1 {
     border: 2px outset #91c092;
     top: 10px;
     text-align: center;
-    margin-left: 15px;
     float: left;
     color: white;
+    margin-right: 20px;
 }
 
 .dislikeButton:hover{
@@ -472,19 +474,16 @@ h1 {
 
 #likeCount {
     position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
     text-align: center;
     color: green;
-    margin-left: -815px;
+    margin-right: 20px;
 }
 
 #dislikeCount {
     position: relative;
-    top: -10px; /* Adjusted position above the button */
-    width: 100%;
     text-align: center;
     color: red;
+    margin-right: 20px;
 }
 
 #commentLikeCount {
@@ -544,7 +543,7 @@ h1 {
 
 /**********************************************************************************/
 
-.shareButton{
+.editButton{
     position:relative;
     height: 20px;
     width:55px;
@@ -555,13 +554,14 @@ h1 {
     margin-right: 15px;
     float: right;
     color: white;
+    margin-left: 300px;   
     }
 
-.shareButton:hover{
+.editButton:hover{
     background-color: navy;
 }
 
-.shareButton:active {
+.editButton:active {
     background-color: lightblue;
     box-shadow: 0 1px #666;
     transform: translateY(1px);
