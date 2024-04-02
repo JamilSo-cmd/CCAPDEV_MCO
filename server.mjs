@@ -112,22 +112,18 @@ app.get('/comments', async (req,res) =>{
 app.post('/postComment', async (req,res) =>{
 
   const commentCollection = client.db("ForumsDB").collection("Comments");
-  const commentStr = req.body.comment;
-  const postStr = req.body.post;
-  let userID = req.session.userInfo;
   const date = new Date(Date.now()).toUTCString();
   
+  const {comment,postID,authorID} = req.body;
   const result = await commentCollection.insertOne({
-
-    comment:commentStr,
+    comment:comment,
     date:date,
-    authorID:userID._id.toString(),
-    postID:postStr,
+    authorID:authorID,
+    postID:postID,
     dislikes: 0,
     likes: 0,
   });
-  console.log(userID._id);
-  res.redirect("/index");
+  res.redirect("/viewpost.html?postID="+postID);
 
 });
 

@@ -15,7 +15,8 @@ $(document).ready(function () {
                 const postData = await responsePost.json();
             
                 console.log('post id is : ' + postData[0]._id);
-                console.log('post id is : ' + postData[0].date);
+                
+                document.getElementById('postID').value = postData[0]._id;
                 document.getElementById('viewPostTitle').textContent = postData[0].subject;
                 document.getElementById('viewPostBody').textContent = postData[0].message;
                 document.getElementById('likeCount').textContent = postData[0].likes;
@@ -37,7 +38,7 @@ $(document).ready(function () {
                         $(".post").find(".editButton").show();
                     }
                     if (userData){
-
+                        document.getElementById('authorID').value = userData[0]._id;
                         $(".postWindow").find("#loginmessage").text("Type comment here");
 
                     }
@@ -109,17 +110,17 @@ $(document).ready(function () {
     
         });
         
-        $("#postComment").on('click', function(){
+        // $("#postComment").on('click', function(){
 
-            var commentStr = $("#commentBox").val();
+        //     var commentStr = $("#commentBox").val();
 
-            console.log(commentStr);
+        //     console.log(commentStr);
 
-            $.post("/postComment?comment="+commentStr +"&post="+ postData[0]._id ,function(data,status){
+        //     $.post("/postComment?comment="+commentStr +"&post="+ postData[0]._id ,function(data,status){
 
-                console.log(data);
+        //         console.log(data);
 
-            });
+        //     });
 
-        });
+        // });
 });

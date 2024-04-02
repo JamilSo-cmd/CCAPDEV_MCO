@@ -84,10 +84,11 @@
                         <div class="commentsection" style="color: rgb(96, 96, 96);">
                             <div class = "postHeader">
                                 <p id = "loginmessage" style ="width: 200px; "><a href = "login.html">Login</a> to comment!</p>
-                                <form style="display:flex;flex-direction: row;">
-                                    <textarea id="commentBox" placeholder = "Type your comment here!"rows="4" cols="50" style="width: 600px;" required></textarea>
-                                        
-                                    <div style = "margin-left: 10px;"><button id ="postComment" style="height: max-content; margin-top:50%;">Post</button></div>
+                                <form action ="/postComment" method="post" style="display:flex;flex-direction: row;">
+                                    <textarea id="commentBox" name="comment" placeholder = "Type your comment here!"rows="4" cols="50" style="width: 600px;" required></textarea>
+                                    <input type="text" value="" id="postID" name="postID" hidden required>
+                                    <input type="text" value="" id="authorID" name="authorID" hidden  required>
+                                    <div style = "margin-left: 10px;"><input type="submit" id ="postComment" style="height: max-content; margin-top:50%;" value="Post"></button></div>
                                 </form>
                             </div>
                             <div id="commentTemplate">
