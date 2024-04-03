@@ -25,7 +25,7 @@ $(document).ready(function () {
                 document.getElementById('posterDate').textContent = postData[0].date;
                 document.getElementById('editLink').href = "/editPost.html?postID="+postData[0]._id;
                 //document.getElementById('likeButton').setAttribute("onclick" ,"likeThis(" + postData[0]._id + ",1)");
-                //document.getElementById('likeButton').onclick = "likeThis()";
+                document.getElementById('postLikeButton').onclick = ()=>{console.log('testing')};
 
                 //to show/hide edit button
                 try{    
