@@ -127,6 +127,26 @@ app.post('/postComment', async (req,res) =>{
 
 });
 
+// gets likes
+app.get('/likes', async (req,res) =>{
+
+  const likeCollection = client.db("ForumsDB").collection("Likes");
+
+  // Execute query 
+  const cursor = likeCollection.find();
+  
+  // Print a message if no documents were found
+  if ((likeCollection.countDocuments()) === 0) {
+    console.log("No comment documents found!");
+  }
+
+  const array =  await cursor.toArray();
+
+  console.log('sending comments');
+  res.status(200).json(array);
+  
+});
+
 app.get('/trending',async (req,res)=> {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
