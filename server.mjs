@@ -183,6 +183,7 @@ app.get('/like', async (req,res) =>{
   
       // Update the user document with the accumulated updates
       await likeCollection.updateOne(filter, { $set: updates });
+
     }
     else { // if the user has not liked/disliked the post before
       console.log('User has never liked/disliked this post before, creating new document');
@@ -191,6 +192,7 @@ app.get('/like', async (req,res) =>{
         like: likeValue,
         likerID: likerID
       });
+
     }
 
     // update post or comment with the appropriate amount of likes/dislieks (WIP)
@@ -227,20 +229,19 @@ app.get('/like', async (req,res) =>{
             console.log('logged a dislike');
             commCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
           }
-    })
-
+        })
+      }
     }
-
-  }}
-    else {
-      console.log('Like request failed');
-      return res.status(404).json({ message: "Like request failed" });
-    }
+  }
+  else {
+    console.log('Like request failed');
+    return res.status(404).json({ message: "Like request failed" });
+  }
 
 
 });
 
-// updates likes and dislikes value of a post/comment based on what is on 'Likes' collection of the db
+// updates likes and dislikes value of a post/comment based on what is on 'Likes' collection of the db (WIP, experimental)
 app.get('/updateLikes', async (req, res) => {
 
   if(req.query.postID) {
