@@ -169,29 +169,27 @@ app.get('/like', async (req,res) =>{
       likeValue = req.query.likeValue;
     }
 
-    var likeToSend = await likeCollection.findOne({ likerID: likerID, postID: postID });
+    // var likeToSend = await likeCollection.findOne({ likerID: likerID, postID: postID });
 
-    if(likeToSend) { // if the user has liked/disliked the post before
+    // if(likeToSend) { // if the user has liked/disliked the post before
 
-      console.log('User has already liked/disliked this post, updating value');
-      const filter = { likerID: likerID, postID: postID };
-      const updates = {};
-      
-      updates.like = likeValue;
-  
-      // Update the user document with the accumulated updates
-      await likeCollection.updateOne(filter, { $set: updates });
+    console.log('User has already liked/disliked this post, updating value');
+    const filter = { likerID: likerID, postID: postID };
+    const updates = {like:likeValue};
+    
+    // Update the user document with the accumulated updates
+    await likeCollection.updateOne(filter, { $set: updates },{upsert:true});
 
-    }
-    else { // if the user has not liked/disliked the post before
-      console.log('User has never liked/disliked this post before, creating new document');
-      await likeCollection.insertOne({ // inserts a new like/dislike
-        postID: postID,
-        like: likeValue,
-        likerID: likerID
-      });
+    // }
+    // else { // if the user has not liked/disliked the post before
+    //   console.log('User has never liked/disliked this post before, creating new document');
+    //   await likeCollection.insertOne({ // inserts a new like/dislike
+    //     postID: postID,
+    //     like: likeValue,
+    //     likerID: likerID
+    //   });
 
-    }
+    // }
 
     const newLikeCollection = client.db("ForumsDB").collection("Likes");
     const cursor = newLikeCollection.find({postID: postID}); // finds all likes that have a matching postID
@@ -203,21 +201,22 @@ app.get('/like', async (req,res) =>{
       await postCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
       await postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
-      let postCursor = {};
+      let likes = 0;
+      let dislikes = 0;
       // iterate through each like/dislike that matches with the postID target
-      likeArray.forEach((like) => {
-        if(like.like == '1') {
-          console.log('logged a like');
-          postCursor = postCollection.findOneAndUpdate({_id: postObjID}, {$inc: {likes: 1}},{returnDocument:'after'})
+      likeArray.forEach((likeDocument) => {
+        if(likeDocument.like == '1') {
+          likes++;
         }
-        else if(like.like == '-1') {
-          console.log('logged a dislike');
-          postCursor = postCollection.findOneAndUpdate({_id: postObjID}, {$inc: {dislikes: 1}},{returnDocument:'after'})
+        else if(likeDocument.like == '-1') {
+          dislikes++;
         }
       }) 
+
+      const postCursor = await postCollection.findOneAndUpdate({_id: postObjID}, {$set: {likes, dislikes}},{returnDocument:'after'})
       
-      console.log(await postCursor);
-      return res.status(200).json(await postCursor);
+      console.log(postCursor);
+      return res.status(200).json(postCursor);
       
     }
     else {
@@ -248,10 +247,10 @@ app.get('/like', async (req,res) =>{
           
     // return res.status(200).json(postCursor);
   }
-    else {
-      console.log('Like request failed');
-      return res.status(404).json({ message: "Like request failed" });
-    }
+      else {
+    console.log('Like request failed');
+    return res.status(404).json({ message: "Like request failed" });
+  }
 });
 
 // updates likes and dislikes value of a post/comment based on what is on 'Likes' collection of the db (WIP, experimental)
