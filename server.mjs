@@ -247,7 +247,11 @@ app.get('/updateLikes', async (req, res) => {
     const likeCollection = client.db("ForumsDB").collection("Likes");
     const postCollection = client.db("ForumsDB").collection("Posts");
     const commCollection = client.db("ForumsDB").collection("Comments");
+    var postID = req.query.postID;
+    var postObjID = new ObjectId(postID);
     var postTarget = await postCollection.findOne({_id: postObjID});
+    const cursor = likeCollection.find({postID: postID}); // finds all likes that have a matching postID
+    const likeArray = await cursor.toArray();
 
     if(postTarget) { // if the like was targeted to a post
       // set the post's likes and dislikes to 0

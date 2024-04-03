@@ -14,6 +14,10 @@ $(document).ready(function () {
                     }
                 })
                 const postData = await responsePost.json();
+
+                /*$.get('/updateLikes?postID=' + postData[0]._id, function(data, status){
+                    
+                })*/
             
                 console.log('post id is : ' + postData[0]._id);
                 // updates content of post based on post data
@@ -71,7 +75,10 @@ $(document).ready(function () {
         $.get("/comments", function(data, status){
 
             data.forEach((comment,x) => {
-                
+                /*$.get('/updateLikes?postID=' + String(comment._id), function(data, status){
+                    
+                })*/
+
                 // if the postID of the comment matches the current post being viewed
                 if(comment.postID == postID){
                     console.log(comment);
