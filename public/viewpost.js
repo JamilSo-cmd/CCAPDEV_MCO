@@ -24,7 +24,9 @@ $(document).ready(function () {
                 document.getElementById('dislikeCount').textContent = postData[0].dislikes;
                 document.getElementById('posterDate').textContent = postData[0].date;
                 document.getElementById('editLink').href = "/editPost.html?postID="+postData[0]._id;
-                
+                //document.getElementById('likeButton').setAttribute("onclick" ,"likeThis(" + postData[0]._id + ",1)");
+                //document.getElementById('likeButton').onclick = "likeThis()";
+
                 //to show/hide edit button
                 try{    
                     const responseUser = await fetch('/userData', {
@@ -61,6 +63,13 @@ $(document).ready(function () {
             } catch (error) {
                 console.error("post loading error: ", error);
             }
+        }
+
+        // for when user clicks like or dislike
+        async function likeThis(likePostID, likeValue) {
+            $.post('filter?postID=' + likePostID + '&likeValue=' + likeValue, function(data, status){
+                
+            })
         }
 
         loadViewPost();  

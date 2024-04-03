@@ -151,12 +151,12 @@ app.get('/likes', async (req,res) =>{
 app.post('/like', async (req,res) =>{
   // like values are '1', dislike values are '-1'
 
-  if(req.header('userID') && req.header('postID')) { // if a userID is given
+  if(req.header('postID') && req.session.userInfo) { // if user is logged in and header is provided
     const likeCollection = client.db("ForumsDB").collection("Likes");
     const postCollection = client.db("ForumsDB").collection("Posts");
     const commCollection = client.db("ForumsDB").collection("Comments");
     var likeValue = 1; // assumes it is a like instead of a dislike before it gets any header value
-    var likerID = req.header('userID');
+    var likerID = String(req.session.userInfo._id);
     var postID = req.header('postID');
     var postObjID = new ObjectId(postID);
     
@@ -208,8 +208,8 @@ app.post('/like', async (req,res) =>{
 
   }
   else {
-    console.error('Missing headers with like request', error);
-    return res.status(404).json({ message: "Missing headers with like request" });
+    console.error('Like request failed', error);
+    return res.status(404).json({ message: "Like request failed" });
   }
 
   // iterate through each like/dislike that matches with the postID target
