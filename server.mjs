@@ -148,27 +148,31 @@ app.get('/likes', async (req,res) =>{
 });
 
 // for when a user sends a like or a dislike
-app.post('/like', async (req,res) =>{
+app.get('/like', async (req,res) =>{
   // like values are '1', dislike values are '-1'
+  console.log(req.query.postID);
 
-  if(req.header('postID') && req.session.userInfo) { // if user is logged in and header is provided
+  if(req.query.postID && req.session.userInfo) { // if user is logged in and header is provided
     const likeCollection = client.db("ForumsDB").collection("Likes");
     const postCollection = client.db("ForumsDB").collection("Posts");
     const commCollection = client.db("ForumsDB").collection("Comments");
     var likeValue = 1; // assumes it is a like instead of a dislike before it gets any header value
     var likerID = String(req.session.userInfo._id);
-    var postID = req.header('postID');
+    var postID = req.query.postID
     var postObjID = new ObjectId(postID);
+
+    console.log('found a post to like, likeValue is: ' + likeValue);
     
-    if(req.header('likeValue')) { // if there is a header value
+    if(req.query.likeValue) { // if there is a header value
       console.log('Received a like/dislike value');
-      likeValue = req.header('likeValue');
+      likeValue = req.query.likeValue;
     }
 
     var likeToSend = await likeCollection.findOne({ likerID: likerID, postID: postID });
 
     if(likeToSend) { // if the user has liked/disliked the post before
 
+      console.log('User has already liked/disliked this post, updating value');
       const filter = { likerID: likerID, postID: postID };
       const updates = {};
       
@@ -178,6 +182,7 @@ app.post('/like', async (req,res) =>{
       await likeCollection.updateOne(filter, { $set: updates });
     }
     else { // if the user has not liked/disliked the post before
+      console.log('User has never liked/disliked this post before, creating new document');
       await likeCollection.insertOne({ // inserts a new like/dislike
         postID: postID,
         like: likeValue,
@@ -191,34 +196,44 @@ app.post('/like', async (req,res) =>{
     const likeArray = await cursor.toArray();
 
     if(postTarget) { // if the like was targeted to a post
+      
+      // set the post/comment's likes and dislikes to 0
+      postCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
+      postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
+      // iterate through each like/dislike that matches with the postID target
+      likeArray.forEach((like, x) => {
+        if(like.like == 1)
+          postCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
+        else(like.like == -1)
+          postCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
+  }) 
     }
     else {
       postTarget = await commCollection.findOne({_id: postObjID});
-      if(!postTarget) { // if the like was not targeted to a comment
-        console.error('No target for like/dislike found', error);
-        return res.status(404).json({ message: "No target for like/dislike found" });
-      }
+      if(postTarget) { // if the like was not targeted to a comment
+              // set the post/comment's likes and dislikes to 0
+        commCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
+        commCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
+
+        // iterate through each like/dislike that matches with the postID target
+        likeArray.forEach((like, x) => {
+          if(like.like == '1') {
+            commCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
+          } else if(like.like == '-1') {
+            commCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
+          }
+      })
     }
 
-    // set the post/comment's likes and dislikes to 0
-    postTarget.updateOne({_id: postObjID}, {$set: {likes: 0}})
-    postTarget.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
 
-  }
-  else {
-    console.error('Like request failed', error);
-    return res.status(404).json({ message: "Like request failed" });
-  }
+  }}
+    else {
+      console.error('Like request failed', error);
+      return res.status(404).json({ message: "Like request failed" });
+    }
 
-  // iterate through each like/dislike that matches with the postID target
-  likeArray.forEach((like, x) => {
-    if(like.like == 1)
-      postTarget.updateOne({_id: postObjID}, {$inc: {likes: 1}})
-    else(like.like == -1)
-      postTarget.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
-  }) 
 
 });
 

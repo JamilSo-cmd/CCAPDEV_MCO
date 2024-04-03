@@ -70,10 +70,10 @@
                                 <p id="viewPostBody"></p></div>
                                 <!-- <Like,dislike,share button bar> -->
                                 <div class="reactionbar"> 
-                                    <button type="button" class="likeButton" onclick=""> Likes </button> 
+                                    <button type="button" id="likeButton" class="likeButton" onclick=""> Like </button> 
                                     <p id="likeCount">0</p>
 
-                                    <button type="button" class="dislikeButton" onclick=""> Dislike </button> 
+                                    <button type="button" id="dislikeButton" class="dislikeButton" onclick=""> Dislike </button> 
                                     <p id="dislikeCount">0</p>
                                     
                                     <a id="editLink" href=""><button type="button" class="editButton" hidden> Edit </button></a>
@@ -157,163 +157,18 @@
             </tr>
         </table>    
         
-   
-        <!--<script>
-            let postLiked = false;
-            let postDisliked = false; 
-            let commentLiked = false;
-           
-            let likes = 0;
-            let dislikes = 0;
-            let commentLikes = 0;
-            let commentDislikes = 0;
-            
-            // Duplicate variables for sample data
-            let commentLikes2 = 0;
-            let commentDislikes2 = 0;
-            
-            function incrementLikes() {
-                if (postLiked == false){
-                    likes++;
-                    document.getElementById('likeCount').textContent = likes;
-                    postLiked = true
-            
-                    if (postDisliked == true){
-                        dislikes--;
-                        document.getElementById('dislikeCount').textContent = dislikes
-                        postDisliked = false
-            
-                    }
-                }
-                else if (postLiked == true){
-                    likes--;
-                    document.getElementById('likeCount').textContent = likes;
-                    postLiked = false;
-                    postDisliked = false
-            
-                }
+        <script>
+            // for when user clicks like or dislike
+            async function likeThis(likePostID, likeValue) {
+                if(likeValue == 1)
+                    console.log('sent a like');
+                else if(likeValue == -1)
+                    console.log('sent a dislike');
+                $.get('like?postID=' + likePostID + '&likeValue=' + likeValue, function(data, status){
+                    
+                })
             }
-            
-            function incrementDislikes() {
-                if (postDisliked == false){
-                    dislikes++;
-                    document.getElementById('dislikeCount').textContent = dislikes;
-                    postDisliked = true
-            
-                    if (postLiked == true){
-                        likes--;
-                        document.getElementById('likeCount').textContent = likes
-                        postLiked = false
-            
-                    }
-                }
-                else if (postDisliked == true){
-                    dislikes--;
-                    document.getElementById('dislikeCount').textContent = dislikes;
-                    postLiked = false;
-                    postDisliked = false
-            
-                }
-            }
-            
-            function incrementCommentLikes() {
-                commentLikes++;
-                document.getElementById('commentLikeCount').textContent = commentLikes;
-            }
-            
-            function incrementCommentDislikes() {
-                commentDislikes++;
-                document.getElementById('commentDislikeCount').textContent = commentDislikes;
-            }
-            
-            // Temporary duplicate functions for sample data *****************************************************
-            
-            
-            
-            function incrementCommentLikes2() {
-                commentLikes2++;
-                document.getElementById('commentLikeCount2').textContent = commentLikes2;
-            }
-            
-            function incrementCommentDislikes2() {
-                commentDislikes2++;
-                document.getElementById('commentDislikeCount2').textContent = commentDislikes2;
-            }
-            
-             //temp
-            
-            
-            console.log(loggedIn)
-            if (loggedIn === false){
-                
-                document.getElementById("commentBox").style.visibility = "hidden"
-                document.getElementById("postComment").style.visibility = "hidden"
-
-                sidebuttonsList = document.getElementsByClassName("sideButtons")
-
-                for (var x = 0; x < sidebuttonsList.length ; x++) {
-                sidebuttonsList[x+1].style.visibility = "hidden";
-                }
-
-                document.getElementById("homeButton").style.visibility = "hidden"
-                
-            }
-            
-            if(loggedIn === true){
-                document.getElementById("loginmessage").innerHTML = "Leave a Comment: "
-                document.getElementById("loginlogouttext").innerHTML = "LOG OUT"
-                
-            }
-
-            
-
-
-            
-            
-            function add(){
-                const itemHTML = `<div class="postHeader">
-                                <div class="message">
-            
-                                    <table>
-                                        <tr>
-                                            <td><img src="https://e0.pxfuel.com/wallpapers/547/174/desktop-wallpaper-visartheking-twitter-dog-memes-dog-icon-dog-doggo-meme.jpg" class = "commenticon"/></td>
-                                            <td><div class="user"><a href="profile.html">Bob Testuser</a></div></td>
-                                        </tr>
-                                    </table>
-            
-                                    
-            
-                                    <link to profile later>
-                                   
-                                    <div class="comment">${document.getElementById("commentBox").value}</div>
-                                    <br>
-            
-                                    Like,dislike button bar>
-                                    <div class="reactionbar"> 
-                                        
-                                        <button type="button" class="likeButton" onclick="incrementCommentLikes()"> Like </button> 
-                                        <span id="commentLikeCount">0</span>
-            
-                                        <button type="button" class="dislikeButton" onclick="incrementCommentDislikes()"> Dislike </button> 
-                                        <span id="commentDislikeCount">0</span>
-            
-                                        
-                                                                                
-                                    </div>
-                                    
-                                </div>    
-                            </div> `
-            
-                 const itemsList = document.querySelector("#commentContainer")   
-                 
-                 if (document.getElementById("commentBox").value != ""){
-                    itemsList.innerHTML = itemHTML + itemsList.innerHTML;
-                 }
-            
-            }
-            
-            document.getElementById('postComment').onclick = function() {add()};
-            </script>-->
+        </script>
 
     </body>
 
