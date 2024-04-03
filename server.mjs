@@ -231,15 +231,20 @@ app.get('/like', async (req,res) =>{
             commCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
           }
         })
+
       }
+
     }
+  
+    const postCursor = await postCollection.findOne({_id:postObjID}); 
+    console.log(postCursor);
+    
+    res.status(200).json(postCursor);
   }
-  else {
-    console.log('Like request failed');
-    return res.status(404).json({ message: "Like request failed" });
-  }
-
-
+    else {
+      console.log('Like request failed');
+      return res.status(404).json({ message: "Like request failed" });
+    }
 });
 
 // updates likes and dislikes value of a post/comment based on what is on 'Likes' collection of the db (WIP, experimental)
