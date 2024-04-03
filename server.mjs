@@ -161,8 +161,6 @@ app.get('/like', async (req,res) =>{
     var postID = req.query.postID
     var postObjID = new ObjectId(postID);
     var postTarget = await postCollection.findOne({_id: postObjID});
-    const cursor = likeCollection.find({postID: postID}); // finds all likes that have a matching postID
-    const likeArray = await cursor.toArray();
 
     console.log('found a post to like, likeValue is: ' + likeValue);
     
@@ -195,6 +193,9 @@ app.get('/like', async (req,res) =>{
 
     }
 
+    const newLikeCollection = client.db("ForumsDB").collection("Likes");
+    const cursor = newLikeCollection.find({postID: postID}); // finds all likes that have a matching postID
+    const likeArray = await cursor.toArray();
     // update post or comment with the appropriate amount of likes/dislieks (WIP)
 
     if(postTarget) { // if the like was targeted to a post
