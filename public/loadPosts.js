@@ -147,6 +147,8 @@ $(document).ready(function () {
             newPost.find(".date").text(post.date);
             newPost.find(".subject").text(post.subject);
             newPost.find(".message").text(post.message);
+            newPost.find("#likes").text(post.likes);
+            newPost.find("#dislikes").text(post.dislikes);
             newPost.find(".pageNum").text("page "+ (data.length-x));
 
             $(".postWindow").prepend(newPost);  
