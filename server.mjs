@@ -203,17 +203,22 @@ app.get('/like', async (req,res) =>{
       await postCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
       await postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
+      let postCursor = {};
       // iterate through each like/dislike that matches with the postID target
       likeArray.forEach((like) => {
         if(like.like == '1') {
           console.log('logged a like');
-          postCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
+          postCursor = postCollection.findOneAndUpdate({_id: postObjID}, {$inc: {likes: 1}},{returnDocument:'after'})
         }
         else if(like.like == '-1') {
           console.log('logged a dislike');
-          postCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
+          postCursor = postCollection.findOneAndUpdate({_id: postObjID}, {$inc: {dislikes: 1}},{returnDocument:'after'})
         }
       }) 
+      
+      console.log(await postCursor);
+      return res.status(200).json(await postCursor);
+      
     }
     else {
       postTarget = await commCollection.findOne({_id: postObjID});
@@ -236,10 +241,12 @@ app.get('/like', async (req,res) =>{
 
     }
   
-    const postCursor = await postCollection.findOne({_id:postObjID}); 
-    console.log(postCursor);
-    
-    res.status(200).json(postCursor);
+    // const postCursor = await postCollection.findOne({_id:postObjID}); 
+    // console.log('logged a dislike');
+    // const postCursor = await postCollection.findOneAndUpdate({_id: postObjID}, {$inc: {dislikes: 1}})
+    // console.log(postCursor);
+          
+    // return res.status(200).json(postCursor);
   }
     else {
       console.log('Like request failed');
