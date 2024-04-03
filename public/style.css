@@ -443,7 +443,7 @@ h1 {
     background-color:darkgreen;
 }
 
-.likebutton:active {
+.likeButton:active {
     background-color: #a5d2a6;
     box-shadow: 0 1px #666;
     transform: translateY(1px);
