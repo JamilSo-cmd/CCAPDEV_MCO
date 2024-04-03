@@ -167,6 +167,10 @@
                 $.get('/like?postID=' + likePostID + '&likeValue=' + likeValue, function(data, status){
                     
                     console.log(data);
+                    
+                    document.getElementById('dislikeCount').textContent = data.dislikes;
+                    document.getElementById('likeCount').textContent = data.likes;
+
                 })
             }
         </script>
