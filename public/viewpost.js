@@ -98,11 +98,16 @@ $(document).ready(function () {
                         .catch(error => {
                             console.error('Error fetching user data:', error);
                         });
+
+                    const commentObjID = comment._id;
         
                     newComment.find(".comment").text(comment.comment);
                     newComment.find(".commentDate").text(comment.date);
                     newComment.find(".username").attr('href', 'profile.html?userID=' + String(comment.authorID));
-
+                    newComment.find(".likeButton").attr("onclick" ,"likeThis('" + commentObjID + "', 1)");
+                    newComment.find(".dislikeButton").attr("onclick" ,"likeThis('" + commentObjID + "', 1)");
+                    newComment.find(".commentLikeCount").text(comment.likes);
+                    newComment.find(".commentDislikeCount").text(comment.dislikes);
         
                     $(".postFooter").prepend(newComment); 
                     }

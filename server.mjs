@@ -196,18 +196,17 @@ app.get('/like', async (req,res) =>{
     // update post or comment with the appropriate amount of likes/dislieks (WIP)
 
     if(postTarget) { // if the like was targeted to a post
-      
       // set the post's likes and dislikes to 0
       await postCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
       await postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
       // iterate through each like/dislike that matches with the postID target
       likeArray.forEach((like, x) => {
-        if(like.like == 1) {
+        if(like.like == '1') {
           console.log('logged a like');
           postCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
         }
-        else if(like.like == -1) {
+        else if(like.like == '-1') {
           console.log('logged a dislike');
           postCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
         }
@@ -232,9 +231,6 @@ app.get('/like', async (req,res) =>{
 
         // iterate through each like/dislike that matches with the postID target
     }
-
-
-
 
   }}
     else {
