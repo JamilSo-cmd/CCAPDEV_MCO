@@ -1,6 +1,6 @@
 $(document).ready(function () {
     
-    const userID = new URLSearchParams(window.location.search).get('userID');
+    var userID = new URLSearchParams(window.location.search).get('userID');
     var userPostCount = 0;
     console.log(userID);
     // gets user Data from backend
@@ -70,13 +70,15 @@ $(document).ready(function () {
                             console.error('Error fetching user data:', error);
                         });
 
-                    newPost.attr('id',"");
-                    newPost.find(".username").attr('href', 'profile.html?userID=' + post.authorID);
-                    newPost.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + String(post._id));
-                    newPost.find(".date").text(post.date);
-                    newPost.find(".subject").text(post.subject);
-                    newPost.find(".message").text(post.message);
-                    newPost.find(".pageNum").text("page "+ (data.length-x));
+                        newPost.attr('id',"");
+                        newPost.find(".username").attr('href', 'profile.html?userID=' + post.authorID);
+                        newPost.find(".viewPostLink").attr('href', 'viewpost.html?postID=' + String(post._id));
+                        newPost.find(".date").text(post.date);
+                        newPost.find(".subject").text(post.subject);
+                        newPost.find(".message").text(post.message);
+                        newPost.find("#likes").text(post.likes);
+                        newPost.find("#dislikes").text(post.dislikes);
+                        newPost.find(".pageNum").text("page "+ (data.length-x));
     
                     $(".userPostWindow").prepend(newPost); 
                     userPostCount++; 
