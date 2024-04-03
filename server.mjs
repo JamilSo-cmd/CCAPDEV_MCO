@@ -11,7 +11,7 @@ import bcrypt from 'bcrypt';
 import {v4 as uuidv4} from 'uuid';
 
 const app = express();
-const port = 3000;
+const port = 10000;
 const __dirname = path.resolve();
 const saltRounds = 10;
 
