@@ -29,7 +29,7 @@ $(document).ready(function () {
                 document.getElementById('posterDate').textContent = postData[0].date;
                 document.getElementById('editLink').href = "/editPost.html?postID="+postData[0]._id;
                 document.getElementById('likeButton').setAttribute("onclick" ,"likeThis('" + postData[0]._id + "', 1)");
-                document.getElementById('dislikeButton').setAttribute("onclick" ,"likeThis('" + postData[0]._id + "', -1)");
+                document.getElementByIgd('dislikeButton').setAttribute("onclick" ,"likeThis('" + postData[0]._id + "', -1)");
 
                 //to show/hide edit button
                 try{    
