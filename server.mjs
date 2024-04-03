@@ -158,6 +158,7 @@ app.post('/like', async (req,res) =>{
     var likeValue = 1; // assumes it is a like instead of a dislike before it gets any header value
     var likerID = req.header('userID');
     var postID = req.header('postID');
+    var postObjID = new ObjectId(postID);
     
     if(req.header('likeValue')) { // if there is a header value
       console.log('Received a like/dislike value');
@@ -185,24 +186,39 @@ app.post('/like', async (req,res) =>{
     }
 
     // update post or comment with the appropriate amount of likes/dislieks (WIP)
-    var postTarget = await postCollection.findOne({_id: new ObjectId(postID)});
-    const cursor = likeCollection.find();
+    var postTarget = await postCollection.findOne({_id: postObjID});
+    const cursor = likeCollection.find({postID: postID}); // finds all likes that have a matching postID
+    const likeArray = await cursor.toArray();
 
     if(postTarget) { // if the like was targeted to a post
 
     }
     else {
-      postTarget = await commCollection.findOne({_id: new ObjectId(postID)});
-      if(postTarget) { // if the like was targeted to a comment
-
+      postTarget = await commCollection.findOne({_id: postObjID});
+      if(!postTarget) { // if the like was not targeted to a comment
+        console.error('No target for like/dislike found', error);
+        return res.status(404).json({ message: "No target for like/dislike found" });
       }
     }
+
+    // set the post/comment's likes and dislikes to 0
+    postTarget.updateOne({_id: postObjID}, {$set: {likes: 0}})
+    postTarget.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
+
 
   }
   else {
     console.error('Missing headers with like request', error);
     return res.status(404).json({ message: "Missing headers with like request" });
   }
+
+  // iterate through each like/dislike that matches with the postID target
+  likeArray.forEach((like, x) => {
+    if(like.like == 1)
+      postTarget.updateOne({_id: postObjID}, {$inc: {likes: 1}})
+    else(like.like == -1)
+      postTarget.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
+  }) 
 
 });
 
