@@ -201,7 +201,7 @@ app.get('/like', async (req,res) =>{
       await postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
       // iterate through each like/dislike that matches with the postID target
-      likeArray.forEach((like, x) => {
+      likeArray.forEach((like) => {
         if(like.like == '1') {
           console.log('logged a like');
           postCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
@@ -219,7 +219,7 @@ app.get('/like', async (req,res) =>{
         await commCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
         await commCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
-        likeArray.forEach((like, x) => {
+        likeArray.forEach((like) => {
           if(like.like == '1') {
             console.log('logged a like');
             commCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
@@ -227,9 +227,8 @@ app.get('/like', async (req,res) =>{
             console.log('logged a dislike');
             commCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
           }
-        })
+    })
 
-        // iterate through each like/dislike that matches with the postID target
     }
 
   }}
@@ -241,10 +240,61 @@ app.get('/like', async (req,res) =>{
 
 });
 
+// updates likes and dislikes value of a post/comment based on what is on 'Likes' collection of the db
+app.get('/updateLikes', async (req, res) => {
+
+  if(req.query.postID) {
+    const likeCollection = client.db("ForumsDB").collection("Likes");
+    const postCollection = client.db("ForumsDB").collection("Posts");
+    const commCollection = client.db("ForumsDB").collection("Comments");
+    var postTarget = await postCollection.findOne({_id: postObjID});
+
+    if(postTarget) { // if the like was targeted to a post
+      // set the post's likes and dislikes to 0
+      await postCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
+      await postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
+
+      // iterate through each like/dislike that matches with the postID target
+      likeArray.forEach((like) => {
+        if(like.like == '1') {
+          console.log('logged a like');
+          postCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
+        }
+        else if(like.like == '-1') {
+          console.log('logged a dislike');
+          postCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
+        }
+      }) 
+    }
+    else {
+      postTarget = await commCollection.findOne({_id: postObjID});
+      if(postTarget) { // if the like was not targeted to a comment
+        // set the comment's likes and dislikes to 0
+        await commCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
+        await commCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
+
+        likeArray.forEach((like) => {
+          if(like.like == '1') {
+            console.log('logged a like');
+            commCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
+          } else if (like.like == '-1') {
+            console.log('logged a dislike');
+            commCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
+          }
+        })
+    }}
+
+
+  }
+  else {
+    console.log('no postID given to update for');
+    return res.status(404).json({ message: "Post not found." });
+  }
+})
+
 app.get('/trending',async (req,res)=> {
 
   const postCollection = client.db("ForumsDB").collection("Posts");
-
   
   // Execute query 
   const cursor = postCollection.find().sort({likes:-1});
