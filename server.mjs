@@ -147,11 +147,14 @@ app.get('/likes', async (req,res) =>{
   
 });
 
+// for when a user sends a like or a dislike
 app.post('/like', async (req,res) =>{
   // like values are '1', dislike values are '-1'
 
   if(req.header('userID') && req.header('postID')) { // if a userID is given
     const likeCollection = client.db("ForumsDB").collection("Likes");
+    const postCollection = client.db("ForumsDB").collection("Posts");
+    const commCollection = client.db("ForumsDB").collection("Comments");
     var likeValue = 1; // assumes it is a like instead of a dislike before it gets any header value
     var likerID = req.header('userID');
     var postID = req.header('postID');
@@ -164,6 +167,7 @@ app.post('/like', async (req,res) =>{
     var likeToSend = await likeCollection.findOne({ likerID: likerID, postID: postID });
 
     if(likeToSend) { // if the user has liked/disliked the post before
+
       const filter = { likerID: likerID, postID: postID };
       const updates = {};
       
@@ -179,9 +183,19 @@ app.post('/like', async (req,res) =>{
         likerID: likerID
       });
     }
-    
 
-  
+    // update post or comment with the appropriate amount of likes/dislieks
+    var postTarget = await postCollection.findOne({id: postID});
+
+    if(postTarget) { // if the like was targeted to a post
+      
+    }
+    else {
+      postTarget = await commCollection.findOne({id: postID});
+      if(postTarget) { // if the like was targeted to a comment
+
+      }
+    }
 
   }
   else {
