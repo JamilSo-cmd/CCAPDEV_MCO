@@ -147,6 +147,50 @@ app.get('/likes', async (req,res) =>{
   
 });
 
+app.post('/like', async (req,res) =>{
+  // like values are '1', dislike values are '-1'
+
+  if(req.header('userID') && req.header('postID')) { // if a userID is given
+    const likeCollection = client.db("ForumsDB").collection("Likes");
+    var likeValue = 1; // assumes it is a like instead of a dislike before it gets any header value
+    var likerID = req.header('userID');
+    var postID = req.header('postID');
+    
+    if(req.header('likeValue')) { // if there is a header value
+      console.log('Received a like/dislike value');
+      likeValue = req.header('likeValue');
+    }
+
+    var likeToSend = await likeCollection.findOne({ likerID: likerID, postID: postID });
+
+    if(likeToSend) { // if the user has liked/disliked the post before
+      const filter = { likerID: likerID, postID: postID };
+      const updates = {};
+      
+      updates.like = likeValue;
+  
+      // Update the user document with the accumulated updates
+      await likeCollection.updateOne(filter, { $set: updates });
+    }
+    else { // if the user has not liked/disliked the post before
+      await likeCollection.insertOne({ // inserts a new like/dislike
+        postID: postID,
+        like: likeValue,
+        likerID: likerID
+      });
+    }
+    
+
+  
+
+  }
+  else {
+    console.error('Missing headers with like request', error);
+    return res.status(404).json({ message: "Missing headers with like request" });
+  }
+
+});
+
 app.get('/trending',async (req,res)=> {
 
   const postCollection = client.db("ForumsDB").collection("Posts");

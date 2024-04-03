@@ -5,6 +5,7 @@ $(document).ready(function () {
     console.log('postID to view is: ' + postID);
     console.log(userID);
 
+        // does most things for viewPost when it comes to the post itself
         async function loadViewPost() {
             try {
                 const responsePost = await fetch('/onePost', {
@@ -15,7 +16,7 @@ $(document).ready(function () {
                 const postData = await responsePost.json();
             
                 console.log('post id is : ' + postData[0]._id);
-                
+                // updates content of post based on post data
                 document.getElementById('postID').value = postData[0]._id;
                 document.getElementById('viewPostTitle').textContent = postData[0].subject;
                 document.getElementById('viewPostBody').textContent = postData[0].message;
@@ -24,7 +25,7 @@ $(document).ready(function () {
                 document.getElementById('posterDate').textContent = postData[0].date;
                 document.getElementById('editLink').href = "/editPost.html?postID="+postData[0]._id;
                 
-                    //to show/hide edit button
+                //to show/hide edit button
                 try{    
                     const responseUser = await fetch('/userData', {
                         headers: {
@@ -63,9 +64,7 @@ $(document).ready(function () {
         }
 
         loadViewPost();  
-
         
-
         // loads comments of post
         $.get("/comments", function(data, status){
 
