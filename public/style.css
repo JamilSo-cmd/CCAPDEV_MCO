@@ -75,6 +75,10 @@
     color: black;
 }
 
+@media all and (max-width: 1200px) {
+    #sideButton { display: none; }
+  }
+
 .postWindow{
     padding-top: 6%;
     display: flex;
