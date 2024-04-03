@@ -184,14 +184,15 @@ app.post('/like', async (req,res) =>{
       });
     }
 
-    // update post or comment with the appropriate amount of likes/dislieks
-    var postTarget = await postCollection.findOne({id: postID});
+    // update post or comment with the appropriate amount of likes/dislieks (WIP)
+    var postTarget = await postCollection.findOne({_id: new ObjectId(postID)});
+    const cursor = likeCollection.find();
 
     if(postTarget) { // if the like was targeted to a post
-      
+
     }
     else {
-      postTarget = await commCollection.findOne({id: postID});
+      postTarget = await commCollection.findOne({_id: new ObjectId(postID)});
       if(postTarget) { // if the like was targeted to a comment
 
       }
