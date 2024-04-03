@@ -160,6 +160,9 @@ app.get('/like', async (req,res) =>{
     var likerID = String(req.session.userInfo._id);
     var postID = req.query.postID
     var postObjID = new ObjectId(postID);
+    var postTarget = await postCollection.findOne({_id: postObjID});
+    const cursor = likeCollection.find({postID: postID}); // finds all likes that have a matching postID
+    const likeArray = await cursor.toArray();
 
     console.log('found a post to like, likeValue is: ' + likeValue);
     
@@ -191,46 +194,51 @@ app.get('/like', async (req,res) =>{
     }
 
     // update post or comment with the appropriate amount of likes/dislieks (WIP)
-    var postTarget = await postCollection.findOne({_id: postObjID});
-    const cursor = likeCollection.find({postID: postID}); // finds all likes that have a matching postID
-    const likeArray = await cursor.toArray();
 
     if(postTarget) { // if the like was targeted to a post
       
-      // set the post/comment's likes and dislikes to 0
-      postCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
-      postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
+      // set the post's likes and dislikes to 0
+      await postCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
+      await postCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
       // iterate through each like/dislike that matches with the postID target
       likeArray.forEach((like, x) => {
-        if(like.like == 1)
+        if(like.like == 1) {
+          console.log('logged a like');
           postCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
-        else(like.like == -1)
+        }
+        else if(like.like == -1) {
+          console.log('logged a dislike');
           postCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
-  }) 
+        }
+      }) 
     }
     else {
       postTarget = await commCollection.findOne({_id: postObjID});
       if(postTarget) { // if the like was not targeted to a comment
-              // set the post/comment's likes and dislikes to 0
-        commCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
-        commCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
+        // set the comment's likes and dislikes to 0
+        await commCollection.updateOne({_id: postObjID}, {$set: {likes: 0}})
+        await commCollection.updateOne({_id: postObjID}, {$set: {dislikes: 0}})
 
-        // iterate through each like/dislike that matches with the postID target
         likeArray.forEach((like, x) => {
           if(like.like == '1') {
+            console.log('logged a like');
             commCollection.updateOne({_id: postObjID}, {$inc: {likes: 1}})
-          } else if(like.like == '-1') {
+          } else if (like.like == '-1') {
+            console.log('logged a dislike');
             commCollection.updateOne({_id: postObjID}, {$inc: {dislikes: 1}})
           }
-      })
+        })
+
+        // iterate through each like/dislike that matches with the postID target
     }
+
 
 
 
   }}
     else {
-      console.error('Like request failed', error);
+      console.log('Like request failed');
       return res.status(404).json({ message: "Like request failed" });
     }
 
