@@ -164,7 +164,7 @@
                     console.log('sent a like');
                 else if(likeValue == -1)
                     console.log('sent a dislike');
-                $.get('like?postID=' + likePostID + '&likeValue=' + likeValue, function(data, status){
+                $.get('/like?postID=' + likePostID + '&likeValue=' + likeValue, function(data, status){
                     
                 })
             }
